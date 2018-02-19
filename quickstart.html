@@ -1,0 +1,2053 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp,noydir">
+
+  
+  <title>Docker Quick Start &mdash; Confluent Platform</title>
+  
+
+  
+  
+
+  
+  
+    <link rel="canonical" href="https://docs.confluent.io/current/installation/docker/docs/quickstart.html"/>
+  
+
+  
+ 
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="stylesheet" href="../../../_static/css/confluent.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../_static/css/com_google_fonts_Lato_Roboto.css" type="text/css" />
+  
+
+  
+
+  <link rel='stylesheet' id='parent-style-css'  href='https://www.confluent.io/wp-content/themes/confluent/style.css' type='text/css' media='all' />
+  <link rel='stylesheet' id='roboto-css'  href='https://fonts.googleapis.com/css?family=Roboto%3A400%2C300%2C100%2C500%2C700' type='text/css' media='all' />
+  <link rel='stylesheet' id='bootstrap-css'  href='https://www.confluent.io/wp-content/themes/confluent/assets/css/bootstrap.min.css' type='text/css' media='all' />
+  <link rel='stylesheet' id='magnific-popup-css'  href='https://www.confluent.io/wp-content/themes/confluent/assets/css/magnific-popup.css' type='text/css' media='all' />
+  <link rel='stylesheet' id='style-css'  href='https://www.confluent.io/wp-content/themes/confluent/assets/css/style.css' type='text/css' media='all' />
+  <link rel='stylesheet' id='style1-css'  href='https://www.confluent.io/wp-content/themes/confluent/assets/css/style1.css' type='text/css' media='all' />
+  <link rel='stylesheet' id='style-f-css'  href='https://www.confluent.io/wp-content/themes/confluent/assets/css/style-f.css' type='text/css' media='all' />
+  <link rel='stylesheet' id='style-t-css'  href='https://www.confluent.io/wp-content/themes/confluent/assets/css/style-t.css' type='text/css' media='all' />
+  <link rel='stylesheet' id='style-responsive-css'  href='https://www.confluent.io/wp-content/themes/confluent/assets/css/style-responsive.css' type='text/css' media='all' />
+  <link rel='stylesheet' id='style-beta-css'  href='https://www.confluent.io/wp-content/themes/confluent/assets/css/style-beta.css' type='text/css' media='all' />
+  <link rel='stylesheet' id='magnific-popup-css'  href='https://www.confluent.io/wp-content/themes/confluent/assets/css/magnific-popup.css?ver=1.8' type='text/css' media='all' />
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="Confluent Platform 4.0.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Installing using Docker" href="index.html"/>
+        <link rel="next" title="Docker Configuration" href="configuration.html"/>
+        <link rel="prev" title="Installing using Docker" href="index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="c-top">
+    <div class="c-top__inner">
+      <div class="c-top__left">
+        <a href="http://www.confluent.io">
+          <img class="c-top__logo" src="https://cdn2.hubspot.net/hub/540072/hubfs/confluent-logo-300.png"/>
+        </a>
+      </div>
+    </div>
+  </div>
+  <header id="site-header">
+    <div class="container">
+      <a href="https://www.confluent.io/" title="Confluent" rel="home" class="brand_logo">
+        <img src="https://www.confluent.io/wp-content/themes/confluent/assets/images/confluent-logo-300.png" alt="Confluent" class="img-responsive">
+      </a>
+      <nav class="navigation"><ul id="menu-main-menu" class="navbar-nav"><li id="menu-item-5774" class="mega_menu menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="https://www.confluent.io/product/confluent-platform/">Product</a>
+<ul class="sub-menu">
+	<li id="menu-item-10175" class="mega_nav video-popup menu-item menu-item-type-custom menu-item-object-custom"><span class="menu_title">KSQL</span><span class="description">Learn about KSQL, Streaming SQL for Apache Kafka and what it can do.</span><div class="menu_image"><img src="https://www.confluent.io/wp-content/uploads/video-image2221111.jpg" /><a title="KSQL" href="https://www.youtube.com/watch?v=A45uRzJiv7I" class="menu_play_btn">Play</a></div></li>
+	<li id="menu-item-5759" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/product/confluent-platform/">Confluent Platform</a></li>
+	<li id="menu-item-5764" class="indented menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="https://www.confluent.io/product/confluent-open-source/">Open Source</a>
+	<ul class="sub-menu">
+		<li id="menu-item-504" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/product/connectors/">Connectors</a></li>
+	</ul>
+</li>
+	<li id="menu-item-5763" class="indented menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="https://www.confluent.io/product/confluent-enterprise/">Enterprise</a>
+	<ul class="sub-menu">
+		<li id="menu-item-505" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/product/control-center/">Confluent Control Center</a></li>
+		<li id="menu-item-5765" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/product/auto-data-balancing/">Auto Data Balancer</a></li>
+		<li id="menu-item-5766" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/product/multi-datacenter/">Replicator</a></li>
+		<li id="menu-item-5767" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/product/connectors/">Connectors</a></li>
+	</ul>
+</li>
+	<li id="menu-item-5762" class="indented menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/confluent-cloud/">Cloud</a></li>
+	<li id="menu-item-10529" class="indented menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/product/compare/">Compare</a></li>
+	<li id="menu-item-10194" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/product/ksql/">KSQL</a></li>
+	<li id="menu-item-1327" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/subscription/">Subscription</a></li>
+	<li id="menu-item-510" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/services/">Services</a></li>
+	<li id="menu-item-10793" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/training/">Training</a></li>
+</ul>
+</li>
+<li id="menu-item-4300" class="mega_menu menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="https://www.confluent.io/industry-solutions/">Solutions</a>
+<ul class="sub-menu">
+	<li id="menu-item-10179" class="mega_nav video-popup menu-item menu-item-type-custom menu-item-object-custom"><span class="menu_title">New</span><span class="description">Get an overview of an Apache Kafka-centric microservices architecture.</span><div class="menu_image"><img src="https://www.confluent.io/wp-content/uploads/conf_micro_thumbnail-new.jpg" /><a title="New" href="https://www.youtube.com/watch?v=aWI7iU36qv0" class="menu_play_btn">Play</a></div></li>
+	<li id="menu-item-4305" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/industry-solutions/">Industry Solutions</a></li>
+	<li id="menu-item-4304" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/solutions/microservices/">Microservices</a></li>
+	<li id="menu-item-4302" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/solutions/internet-of-things-iot/">Internet of Things</a></li>
+	<li id="menu-item-10521" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/solutions/financial-services">Financial Services</a></li>
+</ul>
+</li>
+<li id="menu-item-10180" class="mega_menu menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children"><a href="#">Developers</a>
+<ul class="sub-menu">
+	<li id="menu-item-10181" class="mega_nav mega_nav_2 menu-item menu-item-type-custom menu-item-object-custom"><span class="menu_title">Kafka Summit</span><span class="description">Join us at the largest event for the Apache Kafka community in Europe: Kafka Summit London, April 23-24, 2018.</span><a title="Kafka Summit" target="_blank" href="https://kafka-summit.org/events/kafka-summit-london-2018/">Register Now</a></li>
+	<li id="menu-item-10182" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="https://www.confluent.io/what-is-apache-kafka/">What is Kafka?</a></li>
+	<li id="menu-item-10185" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/resources/">Resources</a></li>
+	<li id="menu-item-3870" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/online-talks/">Online Talks</a></li>
+	<li id="menu-item-10594" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/apache-kafka-meetups/">Meetups</a></li>
+	<li id="menu-item-10183" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="https://kafka-summit.org/">Kafka Summit</a></li>
+</ul>
+</li>
+<li id="menu-item-10586" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="https://www.confluent.io/about/">About Us</a>
+<ul class="sub-menu">
+	<li id="menu-item-10587" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/what-is-apache-kafka/">What is Apache Kafka</a></li>
+	<li id="menu-item-10588" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/about/">Company</a></li>
+	<li id="menu-item-10589" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="/partners">Partners</a></li>
+	<li id="menu-item-10590" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/in-the-news/">News</a></li>
+	<li id="menu-item-10591" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/events-conferences/">Events</a></li>
+	<li id="menu-item-10592" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/careers/">Careers</a></li>
+	<li id="menu-item-10593" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="/contact">Contact</a></li>
+</ul>
+</li>
+<li id="menu-item-1333" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent"><a href="https://www.confluent.io/blog/">Blog</a></li>
+<li id="menu-item-45" class="menu-item menu-item-type-custom menu-item-object-custom"><a target="_blank" href="http://docs.confluent.io/current/">Docs</a></li>
+<li id="menu-item-8430" class="download-button menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.confluent.io/download/">Download</a></li>
+</ul></nav>
+    </div>
+  </header>
+  <div class="c-body">
+    <div class="container">
+      <div class="wy-grid-for-nav">
+        
+        <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+          <div class="wy-side-scroll">
+            <div class="wy-side-nav-search">
+              <input type="text" class="st-default-search-input">
+            </div>
+            <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+              
+              
+                
+                    <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../getting-started.html">Getting Started</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../platform.html">What is the Confluent Platform?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform.html#what-is-included-in-the-confluent-platform">What is included in the Confluent Platform?</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../platform.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../platform.html#confluent-open-source">Confluent Open Source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../platform.html#confluent-enterprise">Confluent Enterprise</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../platform.html#confluent-proactive-support">Confluent Proactive Support</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../platform.html#migrating-an-existing-kafka-deployment">Migrating an existing Kafka deployment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../platform.html#migrating-developer-tools">Migrating developer tools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../platform.html#migrating-to-control-center">Migrating to Control Center</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html">Confluent Platform Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cloud-quickstart.html">Confluent Cloud Quick Start</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../cloud-quickstart.html#step-1-log-into-the-ccloud-web-interface">Step 1: Log into the Confluent Cloud web interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../cloud-quickstart.html#step-2-install-ccloud-cli">Step 2: Install Confluent Cloud CLI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../cloud-quickstart.html#macos">MacOS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cloud-quickstart.html#linux">Linux</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cloud-quickstart.html#windows">Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../cloud-quickstart.html#step-3-configure-ccloud-cli">Step 3: Configure Confluent Cloud CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../cloud-quickstart.html#step-4-create-topics-and-produce-and-consume-to-kafka">Step 4: Create Topics and Produce and Consume to Kafka</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../cloud-quickstart.html#step-5-run-java-examples">Step 5: Run Java Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../cloud-quickstart.html#supported-clients">Supported Clients</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../cloud-quickstart.html#librdkafka">librdkafka</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">Installing and Upgrading</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../installing_cp.html">Install Confluent Platform</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../installing_cp.html#system-requirements">System Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../installing_cp.html#installation-formats">Installation Formats</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../available_packages.html">Packages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../available_packages.html#platform-packages">Platform Packages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../available_packages.html#component-packages">Component Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Installing using Docker</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Docker Quick Start</a></li>
+<li class="toctree-l4"><a class="reference internal" href="configuration.html">Docker Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/index.html">Docker Advanced Tutorials</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../clients.html">Clients</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../clients.html#maven-repository-for-jars">Maven repository for JARs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients.html#c-c">C/C++</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients.html#python">Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients.html#go">Go</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../clients.html#net">.NET</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../migrating.html">Migrating from Open Source to Enterprise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../upgrade.html">Upgrade</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../upgrade.html#preparation">Preparation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../upgrade.html#step-by-step-guide">Step-by-step Guide</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../versions-interoperability.html">Supported Versions and Interoperability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../versions-interoperability.html#cp-versions">Confluent Platform Versions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../versions-interoperability.html#operating-systems">Operating Systems</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../versions-interoperability.html#c3">Confluent Control Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../versions-interoperability.html#java">Java</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../versions-interoperability.html#scala">Scala</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../versions-interoperability.html#component-security">Component Security</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../versions-interoperability.html#clients">Clients</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../versions-interoperability.html#connectors">Connectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../versions-interoperability.html#cross-component-compatibility">Cross-Component Compatibility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../versions-interoperability.html#docker-and-orchestration-tools">Docker and Orchestration Tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli/index.html">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../cli/installing.html">Installing and Configuring the CLI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/installing.html#installing-the-cli">Installing the CLI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/installing.html#configuring-the-cli">Configuring the CLI</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../cli/command-reference/index.html">Command Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/command-reference/confluent-acl.html">confluent acl</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/command-reference/confluent-config.html">confluent config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/command-reference/confluent-current.html">confluent current</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/command-reference/confluent-destroy.html">confluent destroy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/command-reference/confluent-help.html">confluent help</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/command-reference/confluent-list.html">confluent list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/command-reference/confluent-load.html">confluent load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/command-reference/confluent-log.html">confluent log</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/command-reference/confluent-start.html">confluent start</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/command-reference/confluent-status.html">confluent status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/command-reference/confluent-stop.html">confluent stop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/command-reference/confluent-top.html">confluent top</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/command-reference/confluent-unload.html">confluent unload</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/command-reference/index.html#available-commands">Available Commands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/command-reference/index.html#environment-variables">Environment Variables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html">Tutorials and Resources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/cp-demo/docs/index.html">Monitoring Kafka streaming ETL deployments</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../tutorials/cp-demo/docs/index.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../tutorials/cp-demo/docs/index.html#installation">Installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../tutorials/cp-demo/docs/index.html#run-demo">Run demo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../tutorials/cp-demo/docs/index.html#playbook">Playbook</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../tutorials/cp-demo/docs/index.html#troubleshooting-the-demo">Troubleshooting the demo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../tutorials/cp-demo/docs/index.html#teardown">Teardown</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/index.html#demos">Demos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/index.html#technical-blogs">Technical Blogs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/index.html#video-tutorials-and-screencasts">Video Tutorials and Screencasts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/index.html#white-papers">White Papers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release-notes.html">Confluent Platform 4.0.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release-notes.html#highlights">Highlights</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../release-notes.html#enterprise-features">Enterprise Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../release-notes.html#open-source-features">Open Source Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release-notes.html#previous-releases">Previous releases</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../release-notes.html#confluent-platform-3-3-1-release-notes">Confluent Platform 3.3.1 Release Notes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../release-notes.html#confluent-platform-3-3-0-release-notes">Confluent Platform 3.3.0 Release Notes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../release-notes.html#confluent-platform-3-2-2-release-notes">Confluent Platform 3.2.2 Release Notes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../release-notes.html#confluent-platform-3-2-1-release-notes">Confluent Platform 3.2.1 Release Notes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../release-notes.html#confluent-platform-3-2-0-release-notes">Confluent Platform 3.2.0 Release Notes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../release-notes.html#confluent-platform-3-1-2-release-notes">Confluent Platform 3.1.2 Release Notes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../release-notes.html#confluent-platform-3-1-1-release-notes">Confluent Platform 3.1.1 Release Notes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../release-notes.html#confluent-platform-3-1-0-release-notes">Confluent Platform 3.1.0 Release Notes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../release-notes.html#confluent-platform-3-0-1-release-notes">Confluent Platform 3.0.1 Release Notes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../release-notes.html#confluent-platform-3-0-0-release-notes">Confluent Platform 3.0.0 Release Notes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../release-notes.html#confluent-platform-2-0-1-release-notes">Confluent Platform 2.0.1 Release Notes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../release-notes.html#confluent-platform-2-0-0-release-notes">Confluent Platform 2.0.0 Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release-notes.html#how-to-download">How to Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release-notes.html#questions">Questions?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../operations.html">Operations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../kafka/operations.html">Kafka Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../kafka/deployment.html">Production Deployment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/deployment.html#hardware">Hardware</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/deployment.html#jvm">JVM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/deployment.html#important-configuration-options">Important Configuration Options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/deployment.html#file-descriptors-and-mmap">File descriptors and mmap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/deployment.html#multi-node-configuration">Multi-node Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../kafka/post-deployment.html">Post Deployment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/post-deployment.html#changing-configs-dynamically">Changing configs dynamically</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/post-deployment.html#logging">Logging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/post-deployment.html#admin-operations">Admin operations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/post-deployment.html#rolling-restart">Rolling Restart</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/post-deployment.html#performance-tips">Performance Tips</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/post-deployment.html#software-updates">Software Updates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/post-deployment.html#backup-and-restoration">Backup and Restoration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../kafka/rebalancer/rebalancer.html">Auto Data Balancing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/rebalancer/rebalancer.html#requirements">Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/rebalancer/rebalancer.html#quickstart">Quickstart</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/rebalancer/rebalancer.html#licensing">Licensing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/rebalancer/rebalancer.html#configuration-options">Configuration Options</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../kafka/monitoring.html">Monitoring Kafka</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/monitoring.html#server-metrics">Server Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/monitoring.html#producer-metrics">Producer Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/monitoring.html#new-consumer-metrics">New Consumer Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/monitoring.html#old-consumer-metrics">Old Consumer Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../kafka/metrics-reporter/metrics-reporter.html">Confluent Metrics Reporter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/metrics-reporter/metrics-reporter.html#installation">Installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/metrics-reporter/metrics-reporter.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/metrics-reporter/metrics-reporter.html#configuration-options">Configuration Options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/metrics-reporter/metrics-reporter.html#verification">Verification</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../control-center/docs/index.html">Confluent Control Center</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../control-center/docs/quickstart.html">Control Center Quick Start</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/quickstart.html#configure-kafka-and-kafka-connect">Configure Kafka and Kafka Connect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/quickstart.html#configure-and-start-c3-short">Configure and start Control Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/quickstart.html#setup-stream-monitoring">Setup stream monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../control-center/docs/concept.html">Control Center Concepts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/concept.html#motivation">Motivation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/concept.html#time-windows-and-metrics">Time windows and metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/concept.html#latency">Latency</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../control-center/docs/installation/index.html">Installing and Upgrading Control Center</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/installation/installing-control-center.html">Installing Control Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/installation/system-requirements.html">Control Center System Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/installation/configuration.html">Configuring Control Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/installation/clients.html">Installing Control Center Interceptors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/installation/install-apache-kafka.html">Installing Control Center on Apache Kafka</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/installation/troubleshooting.html">Troubleshooting Control Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/installation/upgrade.html">Upgrading Control Center</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../control-center/docs/userguide.html">Control Center User Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/systemhealth.html">System Health</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/monitoring.html">Stream Monitoring</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/connect.html">Kafka Connect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/alerts.html">Alerts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/clusters.html">Clusters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/topics.html">Topic Management</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../control-center/docs/security.html">Security</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/security/ssl.html">Configuring SSL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/security/sasl.html">Configuring SASL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/security/authentication.html">UI Authentication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/security/authentication.html#ui-https">UI HTTPS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/security/authentication.html#authorization-with-kafka-acls">Authorization with Kafka ACLS</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../control-center/docs/changelog.html">Changelog</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/changelog.html#version-4-0-0">Version 4.0.0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/changelog.html#version-3-3-1">Version 3.3.1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/changelog.html#version-3-3-0">Version 3.3.0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/changelog.html#version-3-2-2">Version 3.2.2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/changelog.html#version-3-2-1">Version 3.2.1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/changelog.html#version-3-2-0">Version 3.2.0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/changelog.html#version-3-1-0">Version 3.1.0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../control-center/docs/changelog.html#version-3-0-1">Version 3.0.1</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../multi-dc/index.html">Multi Data-Center Deployment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../multi-dc/replicator-quickstart.html">Replicator Quick Start</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../multi-dc/replicator-quickstart.html#start-the-destination-cluster">Start the destination cluster</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../multi-dc/replicator-quickstart.html#start-the-origin-cluster">Start the origin cluster</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../multi-dc/replicator-quickstart.html#create-a-topic">Create a topic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../multi-dc/replicator-quickstart.html#configure-and-run-replicator">Configure and run Replicator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../multi-dc/replicator-install.html">Installing and Configuring Replicator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../multi-dc/replicator-install.html#install-and-configure-kafka-connect-cluster-for-replicator">Install and Configure Kafka Connect Cluster for Replicator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../multi-dc/replicator-install.html#configure-and-run-a-confluent-replicator-on-the-connect-cluster">Configure and run a Confluent Replicator on the Connect Cluster</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../multi-dc/replicator-tuning.html">Tuning and Monitoring Replicator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../multi-dc/replicator-tuning.html#sizing-replicator-cluster">Sizing Replicator Cluster</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../multi-dc/replicator-tuning.html#getting-more-throughput-from-replicator-tasks">Getting More Throughput From Replicator Tasks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../multi-dc/replicator-tuning.html#monitoring-replicator">Monitoring Replicator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../multi-dc/replicator-configuration.html">Configuration Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../multi-dc/replicator-configuration.html#confluent-platform">Confluent Platform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../multi-dc/replicator-configuration.html#source-topics">Source Topics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../multi-dc/replicator-configuration.html#source-data-conversion">Source Data Conversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../multi-dc/replicator-configuration.html#source-zookeeper">Source Zookeeper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../multi-dc/replicator-configuration.html#source-kafka">Source Kafka</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../multi-dc/replicator-configuration.html#source-kafka-security">Source Kafka: Security</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../multi-dc/replicator-configuration.html#source-kafka-consumer">Source Kafka: Consumer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../multi-dc/replicator-configuration.html#destination-topics">Destination Topics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../multi-dc/replicator-configuration.html#destination-zookeeper">Destination Zookeeper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../multi-dc/replicator-configuration.html#destination-data-conversion">Destination Data Conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../multi-dc/mirrormaker.html">Apache Kafka&#8217;s Mirror Maker</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../multi-dc/mirrormaker.html#comparing-mirror-maker-to-confluent-replicator">Comparing Mirror Maker to Confluent Replicator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../multi-dc/mirrormaker.html#example-of-mirror-maker-use">Example of Mirror Maker Use</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../schema-registry/docs/operations.html">Schema Registry Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../schema-registry/docs/deployment.html">Production Deployment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/deployment.html#hardware">Hardware</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/deployment.html#memory">Memory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/deployment.html#cpus">CPUs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/deployment.html#disks">Disks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/deployment.html#network">Network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/deployment.html#jvm">JVM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/deployment.html#important-configuration-options">Important Configuration Options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/deployment.html#don-t-touch-these-settings">Don&#8217;t Touch These Settings!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/deployment.html#kafka-zookeeper">Kafka &amp; ZooKeeper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/deployment.html#migration-from-zookeeper-master-election-to-kafka-master-election">Migration from Zookeeper master election to Kafka master election</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/deployment.html#backup-and-restore">Backup and Restore</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../schema-registry/docs/monitoring.html">Monitoring</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/monitoring.html#global-metrics">Global Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/monitoring.html#per-endpoint-metrics">Per-Endpoint Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/monitoring.html#endpoints">Endpoints</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../kafka-rest/docs/operations.html">Kafka REST Proxy Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../kafka-rest/docs/deployment.html">Production Deployment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/deployment.html#hardware">Hardware</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/deployment.html#jvm">JVM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/deployment.html#deployment">Deployment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/deployment.html#important-configuration-options">Important Configuration Options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/deployment.html#don-t-touch-these-settings">Don&#8217;t Touch These Settings!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/deployment.html#post-deployment">Post Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../kafka-rest/docs/monitoring.html">Monitoring</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/monitoring.html#global-metrics">Global Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/monitoring.html#per-endpoint-metrics">Per-Endpoint Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/monitoring.html#endpoints">Endpoints</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="operations/index.html">Docker Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="operations/monitoring.html">Monitoring</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="operations/monitoring.html#using-jmx">Using JMX</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="operations/logging.html">Configuring logging</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="operations/logging.html#log4j-log-levels">log4j Log Levels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="operations/logging.html#component-names">Component Names</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="operations/external-volumes.html">Mounting External Volumes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="operations/external-volumes.html#data-volumes-for-kafka-zookeeper">Data Volumes for Kafka &amp; ZooKeeper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="operations/external-volumes.html#security-data-volumes-for-configuring-secrets">Security: Data Volumes for Configuring Secrets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="operations/external-volumes.html#configuring-connect-with-external-jars">Configuring Connect with External jars</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../security.html">Security</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/security_tutorial.html">Security Tutorial</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../tutorials/security_tutorial.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../tutorials/security_tutorial.html#creating-ssl-keys-and-certificates">Creating SSL Keys and Certificates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../tutorials/security_tutorial.html#zookeeper">ZooKeeper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../tutorials/security_tutorial.html#brokers">Brokers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../tutorials/security_tutorial.html#clients">Clients</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../tutorials/security_tutorial.html#kafka-connect">Kafka Connect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../tutorials/security_tutorial.html#replicator">Replicator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../tutorials/security_tutorial.html#confluent-control-center">Confluent Control Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../tutorials/security_tutorial.html#confluent-metrics-reporter">Confluent Metrics Reporter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../tutorials/security_tutorial.html#confluent-monitoring-interceptors">Confluent Monitoring Interceptors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../tutorials/security_tutorial.html#authorization-and-acls">Authorization and ACLs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../tutorials/security_tutorial.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../tutorials/security_tutorial.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../kafka/encryption.html">Encryption with SSL</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/encryption.html#ssl-overview">SSL Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/encryption.html#creating-ssl-keys-and-certificates">Creating SSL Keys and Certificates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/encryption.html#brokers">Brokers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/encryption.html#clients">Clients</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/encryption.html#zookeeper">ZooKeeper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/encryption.html#kafka-connect">Kafka Connect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/encryption.html#confluent-replicator">Confluent Replicator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/encryption.html#confluent-control-center">Confluent Control Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/encryption.html#confluent-metrics-reporter">Confluent Metrics Reporter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/encryption.html#confluent-monitoring-interceptors">Confluent Monitoring Interceptors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/encryption.html#schema-registry">Schema Registry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/encryption.html#rest-proxy">REST Proxy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/encryption.html#ssl-logging">SSL Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../kafka/authentication_ssl.html">Encryption and Authentication with SSL</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authentication_ssl.html#ssl-overview">SSL Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authentication_ssl.html#creating-ssl-keys-and-certificates">Creating SSL Keys and Certificates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authentication_ssl.html#brokers">Brokers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authentication_ssl.html#clients">Clients</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authentication_ssl.html#zookeeper">ZooKeeper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authentication_ssl.html#kafka-connect">Kafka Connect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authentication_ssl.html#confluent-replicator">Confluent Replicator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authentication_ssl.html#confluent-control-center">Confluent Control Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authentication_ssl.html#confluent-metrics-reporter">Confluent Metrics Reporter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authentication_ssl.html#confluent-monitoring-interceptors">Confluent Monitoring Interceptors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authentication_ssl.html#schema-registry">Schema Registry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authentication_ssl.html#rest-proxy">REST Proxy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authentication_ssl.html#ssl-logging">SSL Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../kafka/authentication_sasl.html">Authentication with SASL</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authentication_sasl.html#sasl-overview">SASL Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authentication_sasl.html#gssapi">GSSAPI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authentication_sasl.html#scram">SCRAM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authentication_sasl.html#plain">PLAIN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authentication_sasl.html#jaas-configurations">JAAS configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authentication_sasl.html#enabling-multiple-sasl-mechanisms">Enabling multiple SASL mechanisms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authentication_sasl.html#modifying-sasl-mechanisms-in-a-running-cluster">Modifying SASL mechanisms in a Running Cluster</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../kafka/authorization.html">Authorization and ACLs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authorization.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authorization.html#broker-configuration">Broker Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authorization.html#using-acls">Using ACLs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authorization.html#authorization-in-the-rest-proxy-and-schema-registry">Authorization in the REST Proxy and Schema Registry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/authorization.html#debugging">Debugging</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../kafka/incremental-security-upgrade.html">Adding Security to a Running Cluster</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/incremental-security-upgrade.html#migrating-brokers-and-clients">Migrating Brokers and Clients</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/incremental-security-upgrade.html#migrating-zookeeper">Migrating ZooKeeper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka/incremental-security-upgrade.html#migrating-the-zookeeper-ensemble">Migrating the ZooKeeper ensemble</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../streams/developer-guide/security.html">Streams Security</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/developer-guide/security.html#required-acl-setting-for-secure-kafka-clusters">Required ACL setting for secure Kafka clusters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/developer-guide/security.html#security-example">Security example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../confluent-security-plugins/docs/index.html">Confluent Security Plugins</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../confluent-security-plugins/docs/index.html#installation">Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="security.html">Docker Security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../kafka/security_prefixes.html">Prefixes for Configuring Security</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../connect/index.html">Kafka Connect</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../connect/intro.html">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../connect/intro.html#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../connect/quickstart.html">Kafka Connect Quick Start</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/quickstart.html#goal">Goal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/quickstart.html#what-we-will-do">What we will do</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/quickstart.html#start-the-services">Start the services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/quickstart.html#read-file-data-with-connect">Read File Data with Connect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/quickstart.html#write-file-data-with-connect">Write File Data with Connect</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../connect/concepts.html">Concepts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/concepts.html#connectors">Connectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/concepts.html#tasks">Tasks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/concepts.html#workers">Workers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/concepts.html#converters">Converters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/concepts.html#transforms">Transforms</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../connect/userguide.html">Installing and Configuring Kafka Connect</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/userguide.html#getting-started">Getting Started</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/userguide.html#planning-for-installation">Planning for Installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/userguide.html#installing-plugins">Installing Plugins</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/userguide.html#running-workers">Running Workers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/userguide.html#configuring-workers">Configuring Workers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/userguide.html#upgrading-kafka-connect-workers">Upgrading Kafka Connect Workers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../connect/managing.html">Managing Connectors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/managing.html#using-bundled-connectors">Using Bundled Connectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/managing.html#configuring-connectors">Configuring Connectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/managing.html#managing-running-connectors">Managing Running Connectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/managing.html#using-community-connectors">Using Community Connectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/managing.html#upgrading-a-connector-plugin">Upgrading a Connector Plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../connect/connectors.html">Bundled Connectors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/connect-jdbc/docs/index.html">Confluent JDBC Connector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/connect-hdfs/docs/index.html">Confluent HDFS Connector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/connect-storage-cloud/kafka-connect-s3/docs/index.html">Confluent S3 Connector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/connect-elasticsearch/docs/index.html">Confluent Elasticsearch Connector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/connect-replicator/docs/index.html">Confluent Kafka Replicator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/connect-filestream/filestream_connector.html">Kafka FileStream Connectors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../connect/security.html">Security</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/security.html#encryption">Encryption</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/security.html#authentication">Authentication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/security.html#separate-principals">Separate principals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/security.html#acl-considerations">ACL Considerations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../connect/design.html">Architecture &amp; Internals</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/design.html#motivation">Motivation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/design.html#architecture">Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../connect/devguide.html">Connector Developer Guide</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/devguide.html#core-concepts-and-apis">Core Concepts and APIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/devguide.html#developing-a-simple-connector">Developing a Simple Connector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/devguide.html#dynamic-input-output-partitions">Dynamic Input/Output Partitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/devguide.html#configuration-validation">Configuration Validation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/devguide.html#working-with-schemas">Working with Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/devguide.html#schema-evolution">Schema Evolution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/devguide.html#testing">Testing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/devguide.html#packaging">Packaging</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../connect/faq.html">FAQ</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/faq.html#how-do-i-change-the-output-data-format-of-a-sinkconnector">How do I change the output data format of a SinkConnector?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/faq.html#why-does-a-connector-configuration-update-trigger-a-task-rebalance">Why does a connector configuration update trigger a task rebalance?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/faq.html#why-should-i-use-distributed-mode-instead-of-standalone">Why should I use distributed mode instead of standalone?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/faq.html#do-i-need-to-write-custom-code-to-use-kafka-connect">Do I need to write custom code to use Kafka Connect?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/faq.html#is-the-schema-registry-a-required-service-to-run-kafka-connect">Is the Schema Registry a required service to run Kafka Connect?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/faq.html#how-can-i-use-plain-json-data-with-connect">How can I use plain JSON data with Connect?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/faq.html#does-source-connector-x-support-output-format-y">Does source connector X support output format Y?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/faq.html#why-is-cpu-usage-high-for-my-connect-worker-when-no-connectors-have-been-deployed">Why is CPU usage high for my Connect worker when no connectors have been deployed?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/faq.html#can-connect-sink-connectors-read-data-written-by-other-clients-e-g-a-custom-client">Can connect sink connectors read data written by other clients, e.g. a custom client?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/faq.html#after-testing-a-connector-in-standalone-mode-restarting-it-doesn-t-write-the-data-again">After testing a connector in standalone mode, restarting it doesn&#8217;t write the data again?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/faq.html#can-i-use-a-newer-version-of-connect-with-older-brokers">Can I use a newer version of connect with older brokers?</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../connect/references.html">Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/javadocs.html">Javadocs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/restapi.html">REST Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/allconfigs.html">All Worker Configs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../camus/docs/operations.html">Camus Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../camus/docs/deployment.html">Important Configuration Options</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../zookeeper/operations.html">ZooKeeper Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../zookeeper/deployment.html">ZooKeeper Production Deployment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../zookeeper/deployment.html#stable-version">Stable version</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../zookeeper/deployment.html#hardware">Hardware</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../zookeeper/deployment.html#jvm">JVM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../zookeeper/deployment.html#important-configuration-options">Important Configuration Options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../zookeeper/deployment.html#monitoring">Monitoring</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../zookeeper/deployment.html#multi-node-setup">Multi-node Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../zookeeper/deployment.html#post-deployment">Post Deployment</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../streams/index.html">Kafka Streams</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../streams/introduction.html">Introduction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/introduction.html#the-kafka-streams-api-in-a-nutshell">The Kafka Streams API in a Nutshell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/introduction.html#use-case-examples">Use Case Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/introduction.html#a-closer-look">A Closer Look</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../streams/introduction.html#requirements">Requirements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/introduction.html#apache-kafka">Apache Kafka</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/introduction.html#confluent">Confluent</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../streams/quickstart.html">Kafka Streams Quick Start</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/quickstart.html#purpose">Purpose</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/quickstart.html#start-the-kafka-cluster">Start the Kafka cluster</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/quickstart.html#prepare-the-topics-and-the-input-data">Prepare the topics and the input data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/quickstart.html#process-the-input-data-with-kafka-streams">Process the input data with Kafka Streams</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/quickstart.html#inspect-the-output-data">Inspect the output data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/quickstart.html#stop-the-kafka-cluster">Stop the Kafka cluster</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/quickstart.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../streams/kafka-streams-examples/docs/index.html">Kafka Streams Demo Application</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/kafka-streams-examples/docs/index.html#requirements">Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/kafka-streams-examples/docs/index.html#running-the-kafka-music-demo-application">Running the Kafka Music demo application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/kafka-streams-examples/docs/index.html#running-further-confluent-demo-applications-for-the-kafka-streams-api">Running further Confluent demo applications for the Kafka Streams API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/kafka-streams-examples/docs/index.html#appendix">Appendix</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../streams/concepts.html">Concepts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/concepts.html#kafka-101">Kafka 101</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/concepts.html#stream">Stream</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/concepts.html#stream-processing-application">Stream Processing Application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/concepts.html#processor-topology">Processor Topology</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/concepts.html#stream-processor">Stream Processor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/concepts.html#stateful-stream-processing">Stateful Stream Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/concepts.html#duality-of-streams-and-tables">Duality of Streams and Tables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/concepts.html#kstream">KStream</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/concepts.html#ktable">KTable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/concepts.html#globalktable">GlobalKTable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/concepts.html#time">Time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/concepts.html#aggregations">Aggregations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/concepts.html#joins">Joins</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/concepts.html#windowing">Windowing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/concepts.html#interactive-queries">Interactive Queries</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../streams/architecture.html">Architecture</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/architecture.html#processor-topology">Processor Topology</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/architecture.html#parallelism-model">Parallelism Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/architecture.html#state">State</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/architecture.html#memory-management">Memory management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/architecture.html#fault-tolerance">Fault Tolerance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/architecture.html#processing-guarantees">Processing Guarantees</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/architecture.html#flow-control-with-timestamps">Flow Control with Timestamps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/architecture.html#backpressure">Backpressure</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../streams/code-examples.html">Code Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/code-examples.html#getting-started-examples">Getting started examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/code-examples.html#security-examples">Security examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/code-examples.html#interactive-queries-examples">Interactive queries examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/code-examples.html#end-to-end-application-examples">End-to-end application examples</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../streams/developer-guide/index.html">Developer Guide</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/developer-guide/write-streams.html">Writing a Streams Application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/developer-guide/config-streams.html">Configuring a Streams Application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/developer-guide/dsl-api.html">Streams DSL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/developer-guide/processor-api.html">Processor API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/developer-guide/datatypes.html">Data Types and Serialization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/developer-guide/interactive-queries.html">Interactive Queries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/developer-guide/memory-mgmt.html">Memory Management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/developer-guide/running-app.html">Running Streams Applications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/developer-guide/manage-topics.html">Managing Streams Application Topics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/developer-guide/security.html">Streams Security</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/developer-guide/app-reset-tool.html">Application Reset Tool</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../streams/operations.html">Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/sizing.html">Capacity planning and sizing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/monitoring.html">Monitoring your application</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../streams/upgrade-guide.html">Upgrade Guide</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/upgrade-guide.html#upgrading-from-cp-3-3-x-kafka-0-11-0-x-cp1-to-cp-4-0-0-kafka-1-0-0-cp1">Upgrading from CP 3.3.x (Kafka 0.11.0.x-cp1) to CP 4.0.0 (Kafka 1.0.0-cp1)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/upgrade-guide.html#upgrading-older-kafka-streams-applications-to-cp-4-0-0">Upgrading older Kafka Streams applications to CP 4.0.0</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../streams/faq.html">FAQ</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/faq.html#general">General</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/faq.html#scalability">Scalability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/faq.html#processing">Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/faq.html#failure-and-exception-handling">Failure and exception handling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/faq.html#interactive-queries">Interactive Queries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/faq.html#security">Security</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../streams/faq.html#troubleshooting-and-debugging">Troubleshooting and debugging</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../streams/javadocs.html">Javadocs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../ksql.html">KSQL</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../ksql.html#download-and-learn-more">Download and Learn More</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../clients/index.html">Kafka Clients</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../clients/consumer.html">Kafka Consumers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../clients/consumer.html#concepts">Concepts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../clients/consumer.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../clients/consumer.html#initialization">Initialization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../clients/consumer.html#basic-usage">Basic Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../clients/consumer.html#detailed-examples">Detailed Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../clients/consumer.html#administration">Administration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../clients/producer.html">Kafka Producers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../clients/producer.html#concepts">Concepts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../clients/producer.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../clients/producer.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../clients/kafka-jms-client/docs/index.html">Confluent&#8217;s JMS Client for Apache Kafka</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../clients/kafka-jms-client/docs/index.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../clients/kafka-jms-client/docs/index.html#example">Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../clients/kafka-jms-client/docs/index.html#requirements">Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../clients/kafka-jms-client/docs/index.html#installation">Installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../clients/kafka-jms-client/docs/index.html#development-guide">Development Guide</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../clients/kafka-jms-client/docs/index.html#jms-1-1-compatibility">JMS 1.1 Compatibility</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../clients/apidocs.html">API Docs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../connect/devguide.html">Connector Developer Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../connect/devguide.html#core-concepts-and-apis">Core Concepts and APIs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/devguide.html#connectors-and-tasks">Connectors and Tasks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/devguide.html#partitions-and-records">Partitions and Records</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/devguide.html#dynamic-connectors">Dynamic Connectors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../connect/devguide.html#developing-a-simple-connector">Developing a Simple Connector</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/devguide.html#connector-example">Connector Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/devguide.html#task-example-source-task">Task Example - Source Task</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/devguide.html#sink-tasks">Sink Tasks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/devguide.html#resuming-from-previous-offsets">Resuming from Previous Offsets</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../connect/devguide.html#dynamic-input-output-partitions">Dynamic Input/Output Partitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../connect/devguide.html#configuration-validation">Configuration Validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../connect/devguide.html#working-with-schemas">Working with Schemas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../connect/devguide.html#schema-evolution">Schema Evolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../connect/devguide.html#testing">Testing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../connect/devguide.html#packaging">Packaging</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/devguide.html#creating-an-archive">Creating an Archive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../connect/devguide.html#creating-an-uber-jar">Creating an Uber JAR</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../schema-registry/docs/index.html">Schema Registry</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../schema-registry/docs/intro.html">Introduction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/intro.html#quickstart">Quickstart</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/intro.html#installation">Installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/intro.html#deployment">Deployment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/intro.html#development">Development</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/intro.html#requirements">Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/intro.html#contribute">Contribute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/intro.html#license">License</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../schema-registry/docs/changelog.html">Changelog</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/changelog.html#version-4-0-0">Version 4.0.0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/changelog.html#version-3-3-0">Version 3.3.0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/changelog.html#version-3-2-1">Version 3.2.1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/changelog.html#version-3-2-0">Version 3.2.0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/changelog.html#version-3-1-1">Version 3.1.1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/changelog.html#version-3-1-0">Version 3.1.0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/changelog.html#version-3-0-1">Version 3.0.1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/changelog.html#version-3-0-0">Version 3.0.0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/changelog.html#version-2-0-1">Version 2.0.1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/changelog.html#version-2-0-0">Version 2.0.0</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../schema-registry/docs/api.html">API Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/api.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/api.html#schemas">Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/api.html#subjects">Subjects</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/api.html#id1">Compatibility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/api.html#config">Config</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../schema-registry/docs/config.html">Configuration Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../schema-registry/docs/design.html">Design Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/design.html#schema-id-allocation">Schema ID Allocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/design.html#kafka-backend">Kafka Backend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/design.html#single-master-architecture">Single Master Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../schema-registry/docs/operations.html">Schema Registry Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/deployment.html">Production Deployment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/monitoring.html">Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../schema-registry/docs/multidc.html">Multi-DC Setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/multidc.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/multidc.html#kafka-election">Kafka Election</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/multidc.html#zookeeper-election">Zookeeper Election</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../schema-registry/docs/security.html">Security Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/security.html#kafka-store">Kafka Store</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/security.html#zookeeper">ZooKeeper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/security.html#configuring-the-rest-api-for-http-or-https">Configuring the REST API for HTTP or HTTPS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/security.html#authorizing-access-to-the-schemas-topic">Authorizing Access to the Schemas Topic</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../schema-registry/docs/serializer-formatter.html">Serializer and Formatter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/serializer-formatter.html#serializer">Serializer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/serializer-formatter.html#formatter">Formatter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/serializer-formatter.html#wire-format">Wire Format</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../schema-registry/docs/schema-deletion-guidelines.html">Schema Deletion Guidelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../schema-registry/docs/maven-plugin.html">Maven Plugin</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/maven-plugin.html#schema-registry-download">schema-registry:download</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/maven-plugin.html#schema-registry-test-compatibility">schema-registry:test-compatibility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../schema-registry/docs/maven-plugin.html#schema-registry-register">schema-registry:register</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="development.html">Docker Developer Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="development.html#image-design-overview">Image Design Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="development.html#the-bootup-process">The Bootup Process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="development.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="development.html#preflight-checks">Preflight Checks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="development.html#launching-the-process">Launching the Process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="development.html#development-guidelines">Development Guidelines</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#setup">Setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="development.html#building-the-images">Building the Images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="development.html#running-tests">Running Tests</a></li>
+<li class="toctree-l4"><a class="reference internal" href="development.html#make-targets">Make Targets</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#extending-the-docker-images">Extending the Docker Images</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="development.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="development.html#adding-connectors-to-the-kafka-connect-image">Adding Connectors to the Kafka Connect Image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="development.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#utility-scripts">Utility Scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="development.html#docker-utility-belt-dub">Docker Utility Belt (dub)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="development.html#confluent-platform-utility-belt-cub">Confluent Platform Utility Belt (cub)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="development.html#client-properties">Client Properties</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../avro.html">Data Serialization and Evolution</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../avro.html#serialization-and-evolution-avro">Avro</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../avro.html#defining-an-avro-schema">Defining an Avro Schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../avro.html#schema-evolution">Schema Evolution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../avro.html#backward-compatibility">Backward Compatibility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../avro.html#forward-compatibility">Forward Compatibility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../avro.html#full-compatibility">Full Compatibility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../avro.html#confluent-schema-registry">Confluent Schema Registry</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../kafka-rest/docs/index.html">Kafka REST Proxy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../kafka-rest/docs/intro.html">Kafka REST Proxy</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/intro.html#quickstart">Quickstart</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/intro.html#features">Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/intro.html#installation">Installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/intro.html#deployment">Deployment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/intro.html#development">Development</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/intro.html#requirements">Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/intro.html#contribute">Contribute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/intro.html#license">License</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../kafka-rest/docs/changelog.html">Changelog</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/changelog.html#version-3-3-0">Version 3.3.0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/changelog.html#version-3-2-2">Version 3.2.2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/changelog.html#version-3-2-1">Version 3.2.1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/changelog.html#version-3-2-0">Version 3.2.0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/changelog.html#version-3-1-2">Version 3.1.2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/changelog.html#version-3-1-1">Version 3.1.1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/changelog.html#version-3-1-0">Version 3.1.0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/changelog.html#version-3-0-0">Version 3.0.0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/changelog.html#version-2-0-1">Version 2.0.1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/changelog.html#version-2-0-0">Version 2.0.0</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../kafka-rest/docs/api.html">API Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/api.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/api.html#api-v2">API v2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/api.html#api-v1">API v1</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../kafka-rest/docs/config.html">Configuration Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/config.html#security-configuration-options">Security Configuration Options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/config.html#interceptor-configuration-options">Interceptor Configuration Options</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../kafka-rest/docs/operations.html">Kafka REST Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/deployment.html">Production Deployment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../kafka-rest/docs/monitoring.html">Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../kafka-rest/docs/security.html">Security Overview</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../camus/docs/index.html">Camus</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../camus/docs/intro.html">Camus</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/intro.html#key-features">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/intro.html#quickstart">Quickstart</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/intro.html#installation">Installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/intro.html#deployment">Deployment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/intro.html#development">Development</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/intro.html#requirements">Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/intro.html#contribute">Contribute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/intro.html#license">License</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../camus/docs/changelog.html">Changelog</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/changelog.html#version-4-0-0">Version 4.0.0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/changelog.html#version-3-3-1">Version 3.3.1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/changelog.html#version-3-3-0">Version 3.3.0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/changelog.html#version-3-2-2">Version 3.2.2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/changelog.html#version-3-2-1">Version 3.2.1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/changelog.html#version-3-2-0">Version 3.2.0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/changelog.html#version-3-1-2">Version 3.1.2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/changelog.html#version-3-1-1">Version 3.1.1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/changelog.html#version-3-1-0">Version 3.1.0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/changelog.html#version-3-0-0">Version 3.0.0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/changelog.html#version-2-0-1">Version 2.0.1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/changelog.html#version-2-0-0">Version 2.0.0</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../camus/docs/config.html">Configuration Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/config.html#schema-registry-configuration">Schema Registry Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/config.html#camus-job-configuration">Camus Job Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/config.html#kafka-configuration">Kafka Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/config.html#example-configuration">Example Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../camus/docs/design.html">Design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../camus/docs/operations.html">Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../camus/docs/deployment.html">Important Configuration Options</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../app-development.html">Application Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../app-development.html#native-clients-with-serializers">Native Clients with Serializers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../app-development.html#java">Java</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../app-development.html#c-c">C/C++</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../app-development.html#rest-proxy">REST Proxy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../proactive-support/docs/index.html">Confluent Proactive Support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../proactive-support/docs/index.html#what-is-proactive-support">What is Proactive Support?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../proactive-support/docs/index.html#how-it-works">How it works</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../proactive-support/docs/index.html#which-metadata-is-collected">Which metadata is collected?</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../proactive-support/docs/index.html#version-collector-default">Version Collector (default)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../proactive-support/docs/index.html#confluent-support-metrics-add-on-package">Confluent Support Metrics (add-on package)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../proactive-support/docs/index.html#which-metadata-and-data-is-not-being-collected">Which metadata and data is not being collected?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../proactive-support/docs/index.html#installing-support-metrics">Installing Support Metrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../proactive-support/docs/index.html#deb-packages-via-apt">DEB Packages via apt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../proactive-support/docs/index.html#rpm-packages-via-yum">RPM Packages via yum</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../proactive-support/docs/index.html#enabling-or-disabling-the-metrics-feature">Enabling or disabling the Metrics feature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../proactive-support/docs/index.html#recommended-proactive-support-configuration-settings-for-licensed-confluent-customers">Recommended Proactive Support configuration settings for licensed Confluent customers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../proactive-support/docs/index.html#proactive-support-configuration-settings">Proactive Support configuration settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../proactive-support/docs/index.html#network-ports-used-by-proactive-support">Network ports used by Proactive Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../proactive-support/docs/index.html#sharing-proactive-support-metadata-with-confluent-manually">Sharing Proactive Support Metadata with Confluent manually</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../proactive-support/docs/index.html#privacy-policy">Privacy Policy</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                
+              
+            </div>
+          </div>
+        </nav>
+
+        <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+          
+          <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+            <i data-toggle="wy-nav-top">
+              <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <polygon id="Line" fill="#a7a7a8" points="3 7 21 7 21 5 3 5"></polygon>
+                      <polygon id="Line" fill="#a7a7a8" points="3 13 21 13 21 11 3 11"></polygon>
+                      <polygon id="Line" fill="#a7a7a8" points="3 19 21 19 21 17 3 17"></polygon>
+                  </g>
+              </svg>
+            </i>
+            <a href="http://confluent.io"><img class="logo" src="https://cdn2.hubspot.net/hub/540072/hubfs/confluent-logo-300.png"/></a>
+          </nav>
+
+
+          
+          <div class="wy-nav-content">
+            <div class="rst-content">
+              <div class="c-breadcrumbs">
+                <a href="/4.0.0" class="version">Version 4.0.0</a>
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../getting-started.html">Getting Started</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Installing and Upgrading</a> &raquo;</li>
+        
+          <li><a href="index.html">Installing using Docker</a> &raquo;</li>
+        
+      <li>Docker Quick Start</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/installation/docker/docs/quickstart.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+              </div>
+              <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+               <div itemprop="articleBody">
+                
+  <div class="section" id="docker-quick-start">
+<span id="docker-quickstart"></span><h1>Docker Quick Start<a class="headerlink" href="#docker-quick-start" title="Permalink to this headline">¶</a></h1>
+<p>This quick start provides a basic guide for deploying a Kafka cluster along with all Confluent Platform components in your Docker environment.  By the end of this quickstart, you will have a functional Confluent deployment against which you can run any number of applications.</p>
+<p>To keep things simple, you can start with a single node Docker environment.  Details on more complex target environments are available later in this documentation (<a class="reference external" href="tutorials/tutorials.html">More Tutorials</a>).  You will also be configuring Kafka and ZooKeeper to store data locally in their Docker containers.  You should refer to the documentation on <a class="reference external" href="operations/external-volumes.html">Docker external volumes</a> for examples of how to add mounted volumes to your host machines.  Mounted volumes provide a persistent storage layer for deployed containers, which allows images such as cp-kafka and cp-zookeeper to be stopped and restarted without losing their stateful data.</p>
+<dl class="docutils">
+<dt>Prerequisites</dt>
+<dd><ul class="first last simple">
+<li><a class="reference internal" href="../../installing_cp.html#system-requirements"><span class="std std-ref">Confluent Platform system requirements</span></a></li>
+<li><a class="reference external" href="https://docs.docker.com/engine/installation/">Docker installed and running</a>.</li>
+</ul>
+</dd>
+</dl>
+<p>If you&#8217;re running on Windows or macOS, you&#8217;ll need to use <a class="reference external" href="https://docs.docker.com/machine/install-machine/">Docker Machine</a> to start the Docker host.  Docker runs natively on Linux, so the Docker host will be your local machine if you go that route.  If you are running on Mac or Windows, be sure to allocate at least 4 GB of RAM to the Docker Machine.</p>
+<div class="section" id="installing-running-docker">
+<h2>Installing &amp; Running Docker<a class="headerlink" href="#installing-running-docker" title="Permalink to this headline">¶</a></h2>
+<p>For this quickstart, you can use Docker Compose or Docker client.</p>
+<ul class="simple">
+<li><a class="reference internal" href="#getting-started-with-docker-compose">Getting Started with Docker Compose</a></li>
+<li><a class="reference internal" href="#getting-started-with-docker-client">Getting Started with Docker Client</a></li>
+</ul>
+</div>
+<div class="section" id="getting-started-with-docker-compose">
+<span id="quickstart-compose"></span><h2>Getting Started with Docker Compose<a class="headerlink" href="#getting-started-with-docker-compose" title="Permalink to this headline">¶</a></h2>
+<p>Docker Compose is a powerful tool that enables you to launch multiple Docker images in a coordinated fashion.  It is ideal for platforms like Confluent.  Before you get started, you will need to install both the core <a class="reference external" href="https://docs.docker.com/engine/installation/">Docker Engine</a> and <a class="reference external" href="https://docs.docker.com/compose/install/">Docker Compose</a>.  Once you&#8217;ve done that, you can follow the steps below to start up the Confluent Platform services.</p>
+<ol class="arabic">
+<li><p class="first">Create and configure the Docker Machine.</p>
+<p><strong>Important:</strong> If you are using Docker for Mac or Docker for Windows, you can skip this step.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>docker-machine create --driver virtualbox --virtualbox-memory <span class="m">6000</span> confluent
+</pre></div>
+</div>
+<p>Next, configure your terminal window to attach it to your new Docker Machine:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">eval</span> <span class="k">$(</span>docker-machine env confluent<span class="k">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Clone the Confluent Platform Docker Images Github Repository.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/confluentinc/cp-docker-images
+</pre></div>
+</div>
+<p>An example Docker Compose file is included that will start up ZooKeeper and Kafka. Navigate to <code class="docutils literal"><span class="pre">cp-docker-images/examples/kafka-single-node</span></code>, where it is located.  Alternatively, you can download the file directly from <a class="reference external" href="https://github.com/confluentinc/cp-docker-images/raw/master/examples/kafka-single-node/docker-compose.yml">GitHub</a>.</p>
+</li>
+<li><p class="first">Start the ZooKeeper and Kafka containers in detached mode (<code class="docutils literal"><span class="pre">-d</span></code>).  Run this command from the directory that contains the <code class="docutils literal"><span class="pre">docker-compose.yml</span></code> file. For example, use this path to launch a single node environment:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> &lt;path-to-cp-docker-images&gt;/examples/kafka-single-node/
+docker-compose up -d
+</pre></div>
+</div>
+<p>You should see the following:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>Pulling kafka <span class="o">(</span>confluentinc/cp-kafka:latest<span class="o">)</span>...
+latest: Pulling from confluentinc/cp-kafka
+ad74af05f5a2: Already exists
+d02e292e7b5e: Already exists
+8de7f5c81ab0: Already exists
+ed0b76dc2730: Already exists
+cfc44fa8a002: Already exists
+f441b84ed9ba: Already exists
+d42bb38e2f0e: Already exists
+Digest: sha256:61373cf6eca980887164d6fede2552015db31a809c99d6c3d5dfc70867b6cd2d
+Status: Downloaded newer image <span class="k">for</span> confluentinc/cp-kafka:latest
+Creating kafkasinglenode_zookeeper_1 ...
+Creating kafkasinglenode_zookeeper_1 ... <span class="k">done</span>
+Creating kafkasinglenode_kafka_1 ...
+Creating kafkasinglenode_kafka_1 ... <span class="k">done</span>
+</pre></div>
+</div>
+<p><strong>Tip:</strong> You can run this command to verify that the services are up and running:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>docker-compose ps
+</pre></div>
+</div>
+<p>You should see the following:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>           Name                        Command            State   Ports
+-----------------------------------------------------------------------
+kafkasinglenode_kafka_1       /etc/confluent/docker/run   Up
+kafkasinglenode_zookeeper_1   /etc/confluent/docker/run   Up
+</pre></div>
+</div>
+<p>If the state is not <cite>Up</cite>, rerun the <code class="docutils literal"><span class="pre">docker-compose</span> <span class="pre">up</span> <span class="pre">-d</span></code> command.</p>
+<p>Now check the ZooKeeper logs to verify that ZooKeeper is healthy.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>docker-compose logs zookeeper <span class="p">|</span> grep -i binding
+</pre></div>
+</div>
+<p>You should see the following:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>zookeeper_1  <span class="p">|</span> <span class="o">[</span><span class="m">2016</span>-07-25 <span class="m">03</span>:26:04,018<span class="o">]</span> INFO binding to port <span class="m">0</span>.0.0.0/0.0.0.0:32181 <span class="o">(</span>org.apache.zookeeper.server.NIOServerCnxnFactory<span class="o">)</span>
+</pre></div>
+</div>
+<p>Next, check the Kafka logs to verify that broker is healthy.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>docker-compose logs kafka <span class="p">|</span> grep -i started
+</pre></div>
+</div>
+<p>You should see the following:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>kafka_1      <span class="p">|</span> <span class="o">[</span><span class="m">2017</span>-08-31 <span class="m">00</span>:31:40,244<span class="o">]</span> INFO <span class="o">[</span>Socket Server on Broker <span class="m">1</span><span class="o">]</span>, Started <span class="m">1</span> acceptor threads <span class="o">(</span>kafka.network.SocketServer<span class="o">)</span>
+kafka_1      <span class="p">|</span> <span class="o">[</span><span class="m">2017</span>-08-31 <span class="m">00</span>:31:40,426<span class="o">]</span> INFO <span class="o">[</span>Replica state machine on controller <span class="m">1</span><span class="o">]</span>: Started replica state machine with initial state -&gt; Map<span class="o">()</span> <span class="o">(</span>kafka.controller.ReplicaStateMachine<span class="o">)</span>
+kafka_1      <span class="p">|</span> <span class="o">[</span><span class="m">2017</span>-08-31 <span class="m">00</span>:31:40,436<span class="o">]</span> INFO <span class="o">[</span>Partition state machine on Controller <span class="m">1</span><span class="o">]</span>: Started partition state machine with initial state -&gt; Map<span class="o">()</span> <span class="o">(</span>kafka.controller.PartitionStateMachine<span class="o">)</span>
+kafka_1      <span class="p">|</span> <span class="o">[</span><span class="m">2017</span>-08-31 <span class="m">00</span>:31:40,540<span class="o">]</span> INFO <span class="o">[</span>Kafka Server <span class="m">1</span><span class="o">]</span>, started <span class="o">(</span>kafka.server.KafkaServer<span class="o">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Test the broker by following these instructions.</p>
+<p>Now you can take this basic deployment for a test drive.  You&#8217;ll verify that the broker is functioning normally by creating a topic and producing data to it.  You&#8217;ll use the client tools directly from another Docker container.</p>
+<ol class="arabic">
+<li><p class="first">Create a topic named <code class="docutils literal"><span class="pre">foo</span></code> and keep things simple by just giving it one partition and one replica.  For a production environment you would have many more broker nodes, partitions, and replicas for scalability and resiliency.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>docker-compose <span class="nb">exec</span> kafka  <span class="se">\</span>
+kafka-topics --create --topic foo --partitions <span class="m">1</span> --replication-factor <span class="m">1</span> --if-not-exists --zookeeper localhost:32181
+</pre></div>
+</div>
+<p>You should see the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Created</span> <span class="n">topic</span> <span class="s2">&quot;foo&quot;</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Verify that the topic was created successfully:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>docker-compose <span class="nb">exec</span> kafka  <span class="se">\</span>
+  kafka-topics --describe --topic foo --zookeeper localhost:32181
+</pre></div>
+</div>
+<p>You should see the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Topic</span><span class="p">:</span><span class="n">foo</span>   <span class="n">PartitionCount</span><span class="p">:</span><span class="mi">1</span>    <span class="n">ReplicationFactor</span><span class="p">:</span><span class="mi">1</span> <span class="n">Configs</span><span class="p">:</span>
+<span class="n">Topic</span><span class="p">:</span> <span class="n">foo</span>  <span class="n">Partition</span><span class="p">:</span> <span class="mi">0</span>    <span class="n">Leader</span><span class="p">:</span> <span class="mi">1</span>    <span class="n">Replicas</span><span class="p">:</span> <span class="mi">1</span>  <span class="n">Isr</span><span class="p">:</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Publish some data to your new topic. This command uses the built-in Kafka Console Producer to produce 42 simple messages to the topic.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>docker-compose <span class="nb">exec</span> kafka  <span class="se">\</span>
+  bash -c <span class="s2">&quot;seq 42 | kafka-console-producer --request-required-acks 1 --broker-list localhost:29092 --topic foo &amp;&amp; echo &#39;Produced 42 messages.&#39;&quot;</span>
+</pre></div>
+</div>
+<p>After running the command, you should see the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Produced</span> <span class="mi">42</span> <span class="n">messages</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Read back the message using the built-in Console consumer:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>docker-compose <span class="nb">exec</span> kafka  <span class="se">\</span>
+  kafka-console-consumer --bootstrap-server localhost:29092 --topic foo --from-beginning --max-messages <span class="m">42</span>
+</pre></div>
+</div>
+<p>If everything is working as expected, each of the original messages you produced should be written back out:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span>
+<span class="o">....</span>
+<span class="mi">42</span>
+<span class="n">Processed</span> <span class="n">a</span> <span class="n">total</span> <span class="n">of</span> <span class="mi">42</span> <span class="n">messages</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</li>
+<li><p class="first">You must explicitly shut down Docker Compose. For more information, see the [docker-compose down](<a class="reference external" href="https://docs.docker.com/compose/reference/down/">https://docs.docker.com/compose/reference/down/</a>) documentation. This will delete all of the containers that you created in this quickstart.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>docker-compose down
+</pre></div>
+</div>
+</li>
+</ol>
+<p>The confluentinc/cp-docker-images GitHub repository has several other interesting examples of docker-compose.yml files that you can use.</p>
+</div>
+<div class="section" id="getting-started-with-docker-client">
+<span id="quickstart-engine"></span><h2>Getting Started with Docker Client<a class="headerlink" href="#getting-started-with-docker-client" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The following steps show each Docker container being launched in detached mode and how to access the logs for those detached containers.  If you prefer to run the containers in the foreground, you can do so by replacing the <code class="docutils literal"><span class="pre">-d</span></code> (&#8220;detached&#8221;) flag with <code class="docutils literal"><span class="pre">--it</span></code> (&#8220;interactive&#8221;). Containers launched in interactive mode will stream the log messages for the Confluent service directly to the terminal window.  For that reason, you&#8217;ll need a separate terminal for each Docker image launched in interactive mode.</p>
+</div>
+</div></blockquote>
+<p>Create and configure the Docker Machine. This example creates a VirtualBox VM with ~6 GB of memory to serve as your Docker host.</p>
+<blockquote>
+<div><div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker-machine create --driver virtualbox --virtualbox-memory <span class="m">6000</span> confluent
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you want to reuse a Docker Machine you&#8217;ve already created under the name &#8220;confluent&#8221; run: <code class="docutils literal"><span class="pre">docker-machine</span> <span class="pre">start</span> <span class="pre">confluent</span></code> instead.</p>
+</div>
+</div></blockquote>
+<p>Next, configure your terminal window to attach it to your new Docker Machine:</p>
+<blockquote>
+<div><div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">eval</span> <span class="k">$(</span>docker-machine env confluent<span class="k">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>All of the subsequent commands should be run from that terminal window to ensure proper access to the running Docker host.  To execute Docker commands from a new terminal window, simply execute the <code class="docutils literal"><span class="pre">eval</span> <span class="pre">$(docker-machine</span> <span class="pre">env</span> <span class="pre">confluent)</span></code> first.</p>
+<div class="section" id="zookeeper">
+<h3>ZooKeeper<a class="headerlink" href="#zookeeper" title="Permalink to this headline">¶</a></h3>
+<p>Start ZooKeeper. You&#8217;ll need to keep this service running throughout, so use a dedicated terminal window if you plan to launch the image in the foreground.</p>
+<blockquote>
+<div><div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker run -d <span class="se">\</span>
+    --net<span class="o">=</span>host <span class="se">\</span>
+    --name<span class="o">=</span>zookeeper <span class="se">\</span>
+    -e <span class="nv">ZOOKEEPER_CLIENT_PORT</span><span class="o">=</span><span class="m">32181</span> <span class="se">\</span>
+    confluentinc/cp-zookeeper:4.0.0
+</pre></div>
+</div>
+<p>This command instructs Docker to launch an instance of the <code class="docutils literal"><span class="pre">confluentinc/cp-zookeeper:4.0.0</span></code> container and name it <code class="docutils literal"><span class="pre">zookeeper</span></code>.  We also specify that we want to use host networking and pass in the required parameter for running Zookeeper: <code class="docutils literal"><span class="pre">ZOOKEEPER_CLIENT_PORT</span></code>.  For a full list of the available configuration options and more details on passing environment variables into Docker containers, see the <a class="reference external" href="configuration.html">configuration reference docs</a>.</p>
+<p>Use the following command to check the Docker logs to confirm that the container has booted up successfully and started the ZooKeeper service.</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker logs zookeeper
+</pre></div>
+</div>
+<p>With this command, you&#8217;re referencing the container name that you want to see the logs for.  To list all containers (running or failed), you can always run <code class="docutils literal"><span class="pre">docker</span> <span class="pre">ps</span> <span class="pre">-a</span></code>.  This is especially useful when running in detached mode.</p>
+<p>When you output the logs for ZooKeeper, you should see the following message at the end of the log output:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">2016</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">24</span> <span class="mi">05</span><span class="p">:</span><span class="mi">15</span><span class="p">:</span><span class="mi">35</span><span class="p">,</span><span class="mi">453</span><span class="p">]</span> <span class="n">INFO</span> <span class="n">binding</span> <span class="n">to</span> <span class="n">port</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">32181</span> <span class="p">(</span><span class="n">org</span><span class="o">.</span><span class="n">apache</span><span class="o">.</span><span class="n">zookeeper</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">NIOServerCnxnFactory</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that the message shows the ZooKeeper service listening at the port you passed in as <code class="docutils literal"><span class="pre">ZOOKEEPER_CLIENT_PORT</span></code> above.</p>
+<p>If the service is not running, the log messages should provide details to help you identify the problem.   Some common errors include:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Network port already in use.   In that case, you&#8217;ll see a message indicating that the ZooKeeper service could not bind to the selected port.  Simply change to an open port or identify (and stop) the Docker container that has a service using that port.</li>
+<li>Insufficient resources.   In rare occasions, you may see memory allocation or other low-level failures at startup. This will only happen if you dramatically overload the capacity of your Docker host.</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="kafka">
+<h3>Kafka<a class="headerlink" href="#kafka" title="Permalink to this headline">¶</a></h3>
+<p>Start Kafka.</p>
+<blockquote>
+<div><div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker run -d <span class="se">\</span>
+    --net<span class="o">=</span>host <span class="se">\</span>
+    --name<span class="o">=</span>kafka <span class="se">\</span>
+    -e <span class="nv">KAFKA_ZOOKEEPER_CONNECT</span><span class="o">=</span>localhost:32181 <span class="se">\</span>
+    -e <span class="nv">KAFKA_ADVERTISED_LISTENERS</span><span class="o">=</span>PLAINTEXT://localhost:29092 <span class="se">\</span>
+    -e <span class="nv">KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR</span><span class="o">=</span><span class="m">1</span> <span class="se">\</span>
+    confluentinc/cp-kafka:4.0.0
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>You&#8217;ll notice that the <code class="docutils literal"><span class="pre">KAFKA_ADVERTISED_LISTENERS</span></code> variable is set to <code class="docutils literal"><span class="pre">localhost:29092</span></code>.  This will make Kafka accessible from outside the container by advertising it&#8217;s location on the Docker host.  You also passed in the ZooKeeper port that you used when launching that container a moment ago.   Because you are using <code class="docutils literal"><span class="pre">--net=host</span></code>, the hostname for the ZooKeeper service can be left at <code class="docutils literal"><span class="pre">localhost</span></code>.</p>
+<p class="last">Also notice that <code class="docutils literal"><span class="pre">KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR</span></code> is set to 1.  This is needed when you are running with a single-node cluster.  If you have three or more nodes, you do not need to change this from the default.</p>
+</div>
+<p>Check the logs to see the broker has booted up successfully:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker logs kafka
+</pre></div>
+</div>
+<p>You should see the following at the end of the log output:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">....</span>
+<span class="p">[</span><span class="mi">2016</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">15</span> <span class="mi">23</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">00</span><span class="p">,</span><span class="mi">295</span><span class="p">]</span> <span class="n">INFO</span> <span class="p">[</span><span class="n">Kafka</span> <span class="n">Server</span> <span class="mi">1</span><span class="p">],</span> <span class="n">started</span> <span class="p">(</span><span class="n">kafka</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">KafkaServer</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="o">...</span>
+<span class="p">[</span><span class="mi">2016</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">15</span> <span class="mi">23</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">00</span><span class="p">,</span><span class="mi">349</span><span class="p">]</span> <span class="n">INFO</span> <span class="p">[</span><span class="n">Controller</span> <span class="mi">1</span><span class="p">]:</span> <span class="n">New</span> <span class="n">broker</span> <span class="n">startup</span> <span class="n">callback</span> <span class="k">for</span> <span class="mi">1</span> <span class="p">(</span><span class="n">kafka</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">KafkaController</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">2016</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">15</span> <span class="mi">23</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">00</span><span class="p">,</span><span class="mi">350</span><span class="p">]</span> <span class="n">INFO</span> <span class="p">[</span><span class="n">Controller</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">broker</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">send</span><span class="o">-</span><span class="n">thread</span><span class="p">],</span> <span class="n">Starting</span>  <span class="p">(</span><span class="n">kafka</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">RequestSendThread</span><span class="p">)</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p id="test-drive">Now you can take this very basic deployment for a test drive.  You&#8217;ll verify that the broker is functioning normally by creating a topic and producing data to it.  You&#8217;ll use the client tools directly from another Docker container.</p>
+<blockquote>
+<div><p>First, you&#8217;ll create a topic.  You&#8217;ll name it <code class="docutils literal"><span class="pre">foo</span></code> and keep things simple by just giving it one partition and only one replica.  Production environments with more broker nodes would obviously use higher values for both partitions and replicas for scalability and resiliency.</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker run <span class="se">\</span>
+  --net<span class="o">=</span>host <span class="se">\</span>
+  --rm confluentinc/cp-kafka:4.0.0 <span class="se">\</span>
+  kafka-topics --create --topic foo --partitions <span class="m">1</span> --replication-factor <span class="m">1</span> --if-not-exists --zookeeper localhost:32181
+</pre></div>
+</div>
+<p>You should see the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Created</span> <span class="n">topic</span> <span class="s2">&quot;foo&quot;</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Before moving on, verify that the topic was created successfully:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker run <span class="se">\</span>
+  --net<span class="o">=</span>host <span class="se">\</span>
+  --rm <span class="se">\</span>
+  confluentinc/cp-kafka:4.0.0 <span class="se">\</span>
+  kafka-topics --describe --topic foo --zookeeper localhost:32181
+</pre></div>
+</div>
+<p>You should see the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Topic</span><span class="p">:</span><span class="n">foo</span>   <span class="n">PartitionCount</span><span class="p">:</span><span class="mi">1</span>    <span class="n">ReplicationFactor</span><span class="p">:</span><span class="mi">1</span> <span class="n">Configs</span><span class="p">:</span>
+<span class="n">Topic</span><span class="p">:</span> <span class="n">foo</span>  <span class="n">Partition</span><span class="p">:</span> <span class="mi">0</span>    <span class="n">Leader</span><span class="p">:</span> <span class="mi">1001</span>    <span class="n">Replicas</span><span class="p">:</span> <span class="mi">1001</span>  <span class="n">Isr</span><span class="p">:</span> <span class="mi">1001</span>
+</pre></div>
+</div>
+<p>Next, you&#8217;ll publish some data to your new topic:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker run <span class="se">\</span>
+  --net<span class="o">=</span>host <span class="se">\</span>
+  --rm <span class="se">\</span>
+  confluentinc/cp-kafka:4.0.0 <span class="se">\</span>
+  bash -c <span class="s2">&quot;seq 42 | kafka-console-producer --request-required-acks 1 --broker-list localhost:29092 --topic foo &amp;&amp; echo &#39;Produced 42 messages.&#39;&quot;</span>
+</pre></div>
+</div>
+<p>This command will use the built-in Kafka Console Producer to produce 42 simple messages to the topic. After running the command, you should see the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Produced</span> <span class="mi">42</span> <span class="n">messages</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>To complete the story, you can read back the message using the built-in Console consumer:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker run <span class="se">\</span>
+  --net<span class="o">=</span>host <span class="se">\</span>
+  --rm <span class="se">\</span>
+  confluentinc/cp-kafka:4.0.0 <span class="se">\</span>
+  kafka-console-consumer --bootstrap-server localhost:29092 --topic foo --from-beginning --max-messages <span class="m">42</span>
+</pre></div>
+</div>
+<p>If everything is working as expected, each of the original messages you produced should be written back out:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span>
+<span class="o">....</span>
+<span class="mi">42</span>
+<span class="n">Processed</span> <span class="n">a</span> <span class="n">total</span> <span class="n">of</span> <span class="mi">42</span> <span class="n">messages</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="schema-registry">
+<h3>Schema Registry<a class="headerlink" href="#schema-registry" title="Permalink to this headline">¶</a></h3>
+<p>Now that you have Kafka and ZooKeeper up and running, you can deploy some of the other components included in Confluent Platform. You&#8217;ll start by using the Schema Registry to create a new schema and send some Avro data to a Kafka topic. Although you would normally do this from one of your applications, you&#8217;ll use a utility provided with Schema Registry to send the data without having to write any code.</p>
+<blockquote>
+<div><p>First, start the Schema Registry container:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker run -d <span class="se">\</span>
+  --net<span class="o">=</span>host <span class="se">\</span>
+  --name<span class="o">=</span>schema-registry <span class="se">\</span>
+  -e <span class="nv">SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL</span><span class="o">=</span>localhost:32181 <span class="se">\</span>
+  -e <span class="nv">SCHEMA_REGISTRY_HOST_NAME</span><span class="o">=</span>localhost <span class="se">\</span>
+  -e <span class="nv">SCHEMA_REGISTRY_LISTENERS</span><span class="o">=</span>http://localhost:8081 <span class="se">\</span>
+  confluentinc/cp-schema-registry:4.0.0
+</pre></div>
+</div>
+<p>As you did before, you can check that it started correctly by viewing the logs.</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker logs schema-registry
+</pre></div>
+</div>
+<p>For the next step, you&#8217;ll publish data to a new topic that will leverage the Schema Registry. For the sake of simplicity, you&#8217;ll launch a second Schema Registry container in interactive mode, and then execute the <code class="docutils literal"><span class="pre">kafka-avro-console-producer</span></code> utility from there.</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker run -it --net<span class="o">=</span>host --rm confluentinc/cp-schema-registry:4.0.0 bash
+</pre></div>
+</div>
+<p>Direct the utility at the local Kafka cluster, tell it to write to the topic <code class="docutils literal"><span class="pre">bar</span></code>, read each line of input as an Avro message, validate the schema against the Schema Registry at the specified URL, and finally indicate the format of the data.</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">#</span> /usr/bin/kafka-avro-console-producer <span class="se">\</span>
+  --broker-list localhost:29092 --topic bar <span class="se">\</span>
+  --property value.schema<span class="o">=</span><span class="s1">&#39;{&quot;type&quot;:&quot;record&quot;,&quot;name&quot;:&quot;myrecord&quot;,&quot;fields&quot;:[{&quot;name&quot;:&quot;f1&quot;,&quot;type&quot;:&quot;string&quot;}]}&#39;</span>
+</pre></div>
+</div>
+<p>Once started, the process will wait for you to enter messages, one per line, and will send them immediately when you hit the <code class="docutils literal"><span class="pre">Enter</span></code> key. Try entering a few messages:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;f1&quot;</span><span class="p">:</span> <span class="s2">&quot;value1&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&quot;f1&quot;</span><span class="p">:</span> <span class="s2">&quot;value2&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&quot;f1&quot;</span><span class="p">:</span> <span class="s2">&quot;value3&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you hit <code class="docutils literal"><span class="pre">Enter</span></code> with an empty line, it will be interpreted as a null value and cause an error. You can simply start the console producer again to continue sending messages.</p>
+</div>
+<p>When you&#8217;re done, use <code class="docutils literal"><span class="pre">Ctrl+C</span></code> or <code class="docutils literal"><span class="pre">Ctrl+D</span></code> to stop the producer client.  You can then type <code class="docutils literal"><span class="pre">exit</span></code> to leave the container altogether.  Now that you&#8217;ve written avro data to Kafka, you should check that the data was actually produced as expected to consume it.  Although the Schema Registry also ships with a built-in console consumer utility, you&#8217;ll instead demonstrate how to read it from outside the container on your local machine via the REST Proxy.  The REST Proxy depends on the Schema Registry when producing/consuming avro data, so you&#8217;ll need to pass in the details for the detached Schema Registry container you launched above.</p>
+</div></blockquote>
+</div>
+<div class="section" id="rest-proxy">
+<h3>REST Proxy<a class="headerlink" href="#rest-proxy" title="Permalink to this headline">¶</a></h3>
+<p>This section describes how to deploy the REST Proxy container and then consume data from the Confluent REST Proxy service.</p>
+<blockquote>
+<div><p>First, start up the REST Proxy:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker run -d <span class="se">\</span>
+  --net<span class="o">=</span>host <span class="se">\</span>
+  --name<span class="o">=</span>kafka-rest <span class="se">\</span>
+  -e <span class="nv">KAFKA_REST_ZOOKEEPER_CONNECT</span><span class="o">=</span>localhost:32181 <span class="se">\</span>
+  -e <span class="nv">KAFKA_REST_LISTENERS</span><span class="o">=</span>http://localhost:8082 <span class="se">\</span>
+  -e <span class="nv">KAFKA_REST_SCHEMA_REGISTRY_URL</span><span class="o">=</span>http://localhost:8081 <span class="se">\</span>
+  -e <span class="nv">KAFKA_REST_HOST_NAME</span><span class="o">=</span>localhost <span class="se">\</span>
+  confluentinc/cp-kafka-rest:4.0.0
+</pre></div>
+</div>
+<p>For the next two steps, you&#8217;re going to use CURL commands to talk to the REST Proxy. Your deployment steps thus far have ensured that both the REST Proxy container and the Schema Registry container are accessible directly through network ports on your local host.  The REST Proxy service is listening at <a class="reference external" href="http://localhost:8082">http://localhost:8082</a>  As above, you&#8217;ll launch a new Docker container from which to execute your commands:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker run -it --net<span class="o">=</span>host --rm confluentinc/cp-schema-registry:4.0.0 bash
+</pre></div>
+</div>
+<p>The first step in consuming data via the REST Proxy is to create a consumer instance.</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">#</span> curl -X POST -H <span class="s2">&quot;Content-Type: application/vnd.kafka.v1+json&quot;</span> <span class="se">\</span>
+  --data <span class="s1">&#39;{&quot;name&quot;: &quot;my_consumer_instance&quot;, &quot;format&quot;: &quot;avro&quot;, &quot;auto.offset.reset&quot;: &quot;smallest&quot;}&#39;</span> <span class="se">\</span>
+  http://localhost:8082/consumers/my_avro_consumer
+</pre></div>
+</div>
+<p>You should see the following:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">{&quot;instance_id&quot;:&quot;my_consumer_instance&quot;,&quot;base_uri&quot;:&quot;http://localhost:8082/consumers/my_avro_consumer/instances/my_consumer_instance&quot;}</span>
+</pre></div>
+</div>
+<p>Your next <code class="docutils literal"><span class="pre">curl</span></code> command will retrieve data from a topic in your cluster (<code class="docutils literal"><span class="pre">bar</span></code> in this case).  The messages will be decoded, translated to JSON, and included in the response. The schema used for deserialization is retrieved automatically from the Schema Registry service, which you told the REST Proxy how to find by setting the <code class="docutils literal"><span class="pre">KAFKA_REST_SCHEMA_REGISTRY_URL</span></code> variable on startup.</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">#</span> curl -X GET -H <span class="s2">&quot;Accept: application/vnd.kafka.avro.v1+json&quot;</span> <span class="se">\</span>
+  http://localhost:8082/consumers/my_avro_consumer/instances/my_consumer_instance/topics/bar
+</pre></div>
+</div>
+<p>You should see the following:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">[{&quot;key&quot;:null,&quot;value&quot;:{&quot;f1&quot;:&quot;value1&quot;},&quot;partition&quot;:0,&quot;offset&quot;:0},{&quot;key&quot;:null,&quot;value&quot;:{&quot;f1&quot;:&quot;value2&quot;},&quot;partition&quot;:0,&quot;offset&quot;:1},{&quot;key&quot;:null,&quot;value&quot;:{&quot;f1&quot;:&quot;value3&quot;},&quot;partition&quot;:0,&quot;offset&quot;:2}]</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="confluent-control-center">
+<h3>Confluent Control Center<a class="headerlink" href="#confluent-control-center" title="Permalink to this headline">¶</a></h3>
+<p>The Control Center application provides enterprise-grade capabilities for monitoring and managing your Confluent deployment. Control Center is part of the Confluent Enterprise offering; a trial license will support the image for the first 30 days after your deployment.</p>
+<div class="section" id="stream-monitoring">
+<h4>Stream Monitoring<a class="headerlink" href="#stream-monitoring" title="Permalink to this headline">¶</a></h4>
+<p>This portion of the quick start provides an overview of how to use Confluent Control Center with console producers and consumers to monitor consumption and latency.</p>
+<blockquote>
+<div><p>You&#8217;ll launch the Confluent Control Center image the same as you&#8217;ve done for earlier containers, connecting to the ZooKeeper and Kafka containers that are already running.  This is also a good opportunity to illustrate mounted volumes, so you&#8217;ll first create a directory on the Docker Machine host for Control Center data.</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker-machine ssh confluent
+
+<span class="gp">docker@confluent:~$</span> mkdir -p /tmp/control-center/data
+<span class="gp">docker@confluent:~$</span> <span class="nb">exit</span>
+</pre></div>
+</div>
+<p>Now you start Control Center, binding its data directory to the directory you just created and its HTTP interface to port 9021.</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker run -d <span class="se">\</span>
+  --name<span class="o">=</span>control-center <span class="se">\</span>
+  --net<span class="o">=</span>host <span class="se">\</span>
+  --ulimit <span class="nv">nofile</span><span class="o">=</span><span class="m">16384</span>:16384 <span class="se">\</span>
+  -p <span class="m">9021</span>:9021 <span class="se">\</span>
+  -v /tmp/control-center/data:/var/lib/confluent-control-center <span class="se">\</span>
+  -e <span class="nv">CONTROL_CENTER_ZOOKEEPER_CONNECT</span><span class="o">=</span>localhost:32181 <span class="se">\</span>
+  -e <span class="nv">CONTROL_CENTER_BOOTSTRAP_SERVERS</span><span class="o">=</span>localhost:29092 <span class="se">\</span>
+  -e <span class="nv">CONTROL_CENTER_REPLICATION_FACTOR</span><span class="o">=</span><span class="m">1</span> <span class="se">\</span>
+  -e <span class="nv">CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS</span><span class="o">=</span><span class="m">1</span> <span class="se">\</span>
+  -e <span class="nv">CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS</span><span class="o">=</span><span class="m">1</span> <span class="se">\</span>
+  -e <span class="nv">CONTROL_CENTER_STREAMS_NUM_STREAM_THREADS</span><span class="o">=</span><span class="m">2</span> <span class="se">\</span>
+  -e <span class="nv">CONTROL_CENTER_CONNECT_CLUSTER</span><span class="o">=</span>http://localhost:28082 <span class="se">\</span>
+  confluentinc/cp-enterprise-control-center:4.0.0
+</pre></div>
+</div>
+<p>You may notice that you have specified a URL for the Kafka Connect cluster that does not yet exist.  Not to worry, you&#8217;ll work on that in the next section.</p>
+<p>Control Center will create the topics it needs in Kafka.  Check that it started correctly by searching it&#8217;s logs with the following command:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker logs control-center <span class="p">|</span> grep Started
+</pre></div>
+</div>
+<p>You should see the following:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">[2016-08-26 18:47:26,809] INFO Started NetworkTrafficServerConnector@26d96e5{HTTP/1.1}{0.0.0.0:9021} (org.eclipse.jetty.server.NetworkTrafficServerConnector)</span>
+<span class="go">[2016-08-26 18:47:26,811] INFO Started @5211ms (org.eclipse.jetty.server.Server)</span>
+</pre></div>
+</div>
+<p>To see the Control Center UI, open the link <a class="reference external" href="http:/">http:/</a>/&lt;ip-of-docker-host&gt;:9021 in your browser.  The Docker Host IP is displayed with the command <code class="docutils literal"><span class="pre">docker-machine</span> <span class="pre">ip</span> <span class="pre">confluent</span></code>.  If your Docker daemon is running on a remote machine (such as an AWS EC2 instance), you&#8217;ll need to allow TCP access to that instance on port 9021. This is done in AWS by adding a &#8220;Custom TCP Rule&#8221; to the instance&#8217;s security group; the rule should all access to port 9021 from any source IP.</p>
+<p>Initially, the Stream Monitoring UI will have no data.</p>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="../../../_images/c3-quickstart-init.png"><img alt="../../../_images/c3-quickstart-init.png" src="../../../_images/c3-quickstart-init.png" style="width: 547.0px; height: 490.5px;" /></a>
+<p class="caption"><span class="caption-text">Confluent Control Center Initial View</span></p>
+</div>
+<p>Next, you&#8217;ll run the console producer and consumer with monitoring interceptors configured and see the data in Control Center.  First you need to create a topic for testing.</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker run <span class="se">\</span>
+  --net<span class="o">=</span>host <span class="se">\</span>
+  --rm confluentinc/cp-kafka:4.0.0 <span class="se">\</span>
+  kafka-topics --create --topic c3-test --partitions <span class="m">1</span> --replication-factor <span class="m">1</span> --if-not-exists --zookeeper localhost:32181
+</pre></div>
+</div>
+<p>Now use the console producer with the monitoring interceptor enabled to send data</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="k">while</span> true<span class="p">;</span>
+<span class="go">do</span>
+<span class="go">  docker run \</span>
+<span class="go">    --net=host \</span>
+<span class="go">    --rm \</span>
+<span class="go">    -e CLASSPATH=/usr/share/java/monitoring-interceptors/monitoring-interceptors-4.0.0.jar \</span>
+<span class="go">    confluentinc/cp-kafka-connect:4.0.0 \</span>
+<span class="go">    bash -c &#39;seq 10000 | kafka-console-producer --request-required-acks 1 --broker-list localhost:29092 --topic c3-test --producer-property interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor --producer-property acks=1 &amp;&amp; echo &quot;Produced 10000 messages.&quot;&#39;</span>
+<span class="go">    sleep 10;</span>
+<span class="go">done</span>
+</pre></div>
+</div>
+<p>This command will use the built-in Kafka Console Producer to produce 10000 simple messages on a 10 second interval to the <code class="docutils literal"><span class="pre">c3-test</span></code> topic. After running the command, you should see the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Produced</span> <span class="mi">10000</span> <span class="n">messages</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>The message will repeat every 10 seconds, as successive iterations of the shell loop are executed.   You can terminate the client with a <code class="docutils literal"><span class="pre">Ctrl+C</span></code>.</p>
+<p>You&#8217;ll use the console consumer with the monitoring interceptor enabled to read the data.  You&#8217;ll want to run this command in a separate terminal window (prepared with the <code class="docutils literal"><span class="pre">eval</span> <span class="pre">$(docker-machine</span> <span class="pre">env</span> <span class="pre">confluent)</span></code> as described earlier).</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nv">OFFSET</span><span class="o">=</span><span class="m">0</span>
+<span class="gp">$</span> <span class="k">while</span> true<span class="p">;</span>
+<span class="go">do</span>
+<span class="go">  docker run \</span>
+<span class="go">    --net=host \</span>
+<span class="go">    --rm \</span>
+<span class="go">    -e CLASSPATH=/usr/share/java/monitoring-interceptors/monitoring-interceptors-4.0.0.jar \</span>
+<span class="go">    confluentinc/cp-kafka-connect:4.0.0 \</span>
+<span class="go">    bash -c &#39;kafka-console-consumer --consumer-property group.id=qs-consumer --consumer-property interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor --bootstrap-server localhost:29092 --topic c3-test --offset &#39;$OFFSET&#39; --partition 0 --max-messages=1000&#39;</span>
+<span class="go">  sleep 1;</span>
+<span class="go">  let OFFSET=OFFSET+1000</span>
+<span class="go">done</span>
+</pre></div>
+</div>
+<p>If everything is working as expected, each of the original messages you produced should be written back out:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span>
+<span class="o">....</span>
+<span class="mi">1000</span>
+<span class="n">Processed</span> <span class="n">a</span> <span class="n">total</span> <span class="n">of</span> <span class="mi">1000</span> <span class="n">messages</span>
+</pre></div>
+</div>
+<p>You&#8217;ve intentionally setup a slow consumer to consume at a rate
+of 1000 messages per second. You&#8217;ll soon reach a steady state
+where the producer window shows an update every 10 seconds while
+the consumer window shows bursts of 1000 messages received
+every 1 second. The monitoring activity should appear in the
+Control Center UI after 15 to 30 seconds.  If you don&#8217;t see any
+activity, use the scaling selector in the upper left hand corner
+of the web page to select a smaller time window (the default is
+4 hours, and you&#8217;ll want to zoom in to a 10-minute scale).  You
+will notice there will be moments where the bars are colored red
+to reflect the slow consumption of data.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../../../_images/c3-quickstart-monitoring-data.png"><img alt="../../../_images/c3-quickstart-monitoring-data.png" src="../../../_images/c3-quickstart-monitoring-data.png" style="width: 511.5px; height: 491.0px;" /></a>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="alerts">
+<h4>Alerts<a class="headerlink" href="#alerts" title="Permalink to this headline">¶</a></h4>
+<p>Confluent Control Center provides alerting functionality to
+notify you when anomalous events occur in your cluster. This
+section assumes the console producer and
+consumer you launched to illustrate the stream monitoring features
+are still running in the background.</p>
+<p>The Alerts and Overview link on the lefthand navigation sidebar displays a history of all triggered events. To begin receiving
+alerts, you&#8217;ll need to create a trigger. Click the &#8220;Triggers&#8221;
+navigation item and then select &#8220;+ New trigger&#8221;.</p>
+<p>Let&#8217;s configure a trigger to fire when the difference between your actual
+consumption and expected consumption is greater than 1000 messages:</p>
+<blockquote>
+<div><div class="figure align-center" id="id2">
+<a class="reference internal image-reference" href="../../../_images/c3-quickstart-new-trigger-form.png"><img alt="../../../_images/c3-quickstart-new-trigger-form.png" src="../../../_images/c3-quickstart-new-trigger-form.png" style="width: 600.5px; height: 438.0px;" /></a>
+<p class="caption"><span class="caption-text">New trigger</span></p>
+</div>
+</div></blockquote>
+<p>Set the trigger name to be &#8220;Underconsumption&#8221;, which is what will be displayed
+on the history page when your trigger fires. You need to select a specific
+consumer group (<code class="docutils literal"><span class="pre">qs-consumer</span></code>) for this trigger.   That&#8217;s the name of
+the group you specified above in your invocation of
+<code class="docutils literal"><span class="pre">kafka-console-consumer</span></code>.</p>
+<p>Set the trigger metric to be &#8220;Consumption difference&#8221; where the
+condition is &#8220;Greater than&#8221; 1000 messages. The buffer time (in seconds) is the
+wall clock time you will wait before firing the trigger to make sure the trigger
+condition is not too transient.</p>
+<p>After saving the trigger, Control Center will now prompt us to associate an action that will execute when
+your newly created trigger fires. For now, the only action is to send an email.
+Select your new trigger and choose maximum send rate for your alert email.</p>
+<blockquote>
+<div><div class="figure align-center" id="id3">
+<a class="reference internal image-reference" href="../../../_images/c3-quickstart-new-action-form.png"><img alt="../../../_images/c3-quickstart-new-action-form.png" src="../../../_images/c3-quickstart-new-action-form.png" style="width: 600.5px; height: 455.5px;" /></a>
+<p class="caption"><span class="caption-text">New action</span></p>
+</div>
+</div></blockquote>
+<p>Let&#8217;s return to your trigger history page. In a short while, you should see
+a new trigger show up in your alert history. This is because you setup your
+consumer to consume data at a slower rate than your producer.</p>
+<blockquote>
+<div><div class="figure align-center" id="id4">
+<a class="reference internal image-reference" href="../../../_images/c3-quickstart-alerts-history.png"><img alt="../../../_images/c3-quickstart-alerts-history.png" src="../../../_images/c3-quickstart-alerts-history.png" style="width: 625.0px; height: 412.0px;" /></a>
+<p class="caption"><span class="caption-text">A newly triggered event</span></p>
+</div>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="kafka-connect">
+<h3>Kafka Connect<a class="headerlink" href="#kafka-connect" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="getting-started">
+<h4>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h4>
+<p>In this section, you&#8217;ll create a simple data pipeline using Kafka Connect. You&#8217;ll start by reading data from a file and writing that data to a new file.  You will then extend the pipeline to show how to use Connect to read from a database table.  This example is meant to be simple for the sake of this quickstart.  If you&#8217;d like a more in-depth example, please refer to the <a class="reference external" href="tutorials/connect-avro-jdbc.html">Using a JDBC Connector with avro data</a> tutorial.</p>
+<p>First, let&#8217;s start up a container with Kafka Connect.  Connect stores all its stateful data (configuration, status, and internal offsets for connectors) directly in Kafka topics. You will create these topics now in the Kafka cluster you have running from the steps above.</p>
+<blockquote>
+<div><div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker run <span class="se">\</span>
+  --net<span class="o">=</span>host <span class="se">\</span>
+  --rm <span class="se">\</span>
+  confluentinc/cp-kafka:4.0.0 <span class="se">\</span>
+  kafka-topics --create --topic quickstart-offsets --partitions <span class="m">1</span> --replication-factor <span class="m">1</span> --if-not-exists --zookeeper localhost:32181
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is possible to allow connect to auto-create these topics by enabling the autocreation setting.  However, it is recommended that you do it manually, as these topics are important for connect to function and you&#8217;ll likely want to control settings such as replication factor and number of partitions.</p>
+</div>
+</div></blockquote>
+<p>Next, create a topic for storing data that you&#8217;ll be sending to Kafka.</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>docker run <span class="se">\</span>
+  --net<span class="o">=</span>host <span class="se">\</span>
+  --rm <span class="se">\</span>
+  confluentinc/cp-kafka:4.0.0 <span class="se">\</span>
+  kafka-topics --create --topic quickstart-data --partitions <span class="m">1</span> --replication-factor <span class="m">1</span> --if-not-exists --zookeeper localhost:32181
+</pre></div>
+</div>
+</div></blockquote>
+<p>Now you should verify that the topics are created before moving on:</p>
+<blockquote>
+<div><div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker run <span class="se">\</span>
+   --net<span class="o">=</span>host <span class="se">\</span>
+   --rm <span class="se">\</span>
+   confluentinc/cp-kafka:4.0.0 <span class="se">\</span>
+   kafka-topics --describe --zookeeper localhost:32181
+</pre></div>
+</div>
+</div></blockquote>
+<p>For this example, you&#8217;ll create a FileSourceConnector, a FileSinkConnector and directories for storing the input and output files. If you are running Docker Machine then you will need to SSH into the VM to run these commands by running <code class="docutils literal"><span class="pre">docker-machine</span> <span class="pre">ssh</span> <span class="pre">&lt;your</span> <span class="pre">machine</span> <span class="pre">name&gt;</span></code>.</p>
+<blockquote>
+<div><p>First, let&#8217;s start a Connect worker in distributed mode. This command points Connect to the three topics that you created in the first step of this quickstart.</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker run -d <span class="se">\</span>
+  --name<span class="o">=</span>kafka-connect <span class="se">\</span>
+  --net<span class="o">=</span>host <span class="se">\</span>
+  -e <span class="nv">CONNECT_PRODUCER_INTERCEPTOR_CLASSES</span><span class="o">=</span>io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor <span class="se">\</span>
+  -e <span class="nv">CONNECT_CONSUMER_INTERCEPTOR_CLASSES</span><span class="o">=</span>io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor <span class="se">\</span>
+  -e <span class="nv">CONNECT_BOOTSTRAP_SERVERS</span><span class="o">=</span>localhost:29092 <span class="se">\</span>
+  -e <span class="nv">CONNECT_REST_PORT</span><span class="o">=</span><span class="m">28082</span> <span class="se">\</span>
+  -e <span class="nv">CONNECT_GROUP_ID</span><span class="o">=</span><span class="s2">&quot;quickstart&quot;</span> <span class="se">\</span>
+  -e <span class="nv">CONNECT_CONFIG_STORAGE_TOPIC</span><span class="o">=</span><span class="s2">&quot;quickstart-config&quot;</span> <span class="se">\</span>
+  -e <span class="nv">CONNECT_OFFSET_STORAGE_TOPIC</span><span class="o">=</span><span class="s2">&quot;quickstart-offsets&quot;</span> <span class="se">\</span>
+  -e <span class="nv">CONNECT_STATUS_STORAGE_TOPIC</span><span class="o">=</span><span class="s2">&quot;quickstart-status&quot;</span> <span class="se">\</span>
+  -e <span class="nv">CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR</span><span class="o">=</span><span class="m">1</span> <span class="se">\</span>
+  -e <span class="nv">CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR</span><span class="o">=</span><span class="m">1</span> <span class="se">\</span>
+  -e <span class="nv">CONNECT_STATUS_STORAGE_REPLICATION_FACTOR</span><span class="o">=</span><span class="m">1</span> <span class="se">\</span>
+  -e <span class="nv">CONNECT_KEY_CONVERTER</span><span class="o">=</span><span class="s2">&quot;org.apache.kafka.connect.json.JsonConverter&quot;</span> <span class="se">\</span>
+  -e <span class="nv">CONNECT_VALUE_CONVERTER</span><span class="o">=</span><span class="s2">&quot;org.apache.kafka.connect.json.JsonConverter&quot;</span> <span class="se">\</span>
+  -e <span class="nv">CONNECT_INTERNAL_KEY_CONVERTER</span><span class="o">=</span><span class="s2">&quot;org.apache.kafka.connect.json.JsonConverter&quot;</span> <span class="se">\</span>
+  -e <span class="nv">CONNECT_INTERNAL_VALUE_CONVERTER</span><span class="o">=</span><span class="s2">&quot;org.apache.kafka.connect.json.JsonConverter&quot;</span> <span class="se">\</span>
+  -e <span class="nv">CONNECT_REST_ADVERTISED_HOST_NAME</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span> <span class="se">\</span>
+  -e <span class="nv">CONNECT_LOG4J_ROOT_LOGLEVEL</span><span class="o">=</span>DEBUG <span class="se">\</span>
+  -e <span class="nv">CONNECT_LOG4J_LOGGERS</span><span class="o">=</span>org.reflections<span class="o">=</span>ERROR <span class="se">\</span>
+  -e <span class="nv">CONNECT_PLUGIN_PATH</span><span class="o">=</span>/usr/share/java <span class="se">\</span>
+  -v /tmp/quickstart/file:/tmp/quickstart <span class="se">\</span>
+  confluentinc/cp-kafka-connect:4.0.0
+</pre></div>
+</div>
+<p>Check to make sure that the Connect worker is up by running the following command to search the logs:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker logs kafka-connect <span class="p">|</span> grep started
+</pre></div>
+</div>
+<p>You should see the following:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">[2016-08-25 18:25:19,665] INFO Herder started (org.apache.kafka.connect.runtime.distributed.DistributedHerder)</span>
+<span class="go">[2016-08-25 18:25:19,676] INFO Kafka Connect started (org.apache.kafka.connect.runtime.Connect)</span>
+</pre></div>
+</div>
+<p>Next, let&#8217;s create the directory where you&#8217;ll store the input and output data files.  Remember, you must do this within the Docker Host.</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker <span class="nb">exec</span> kafka-connect mkdir -p /tmp/quickstart/file
+</pre></div>
+</div>
+<p>You will now create your first connector for reading a file from disk.  To do this, start by creating a file with some data. Again, if you are running Docker Machine then you will need to SSH into the VM to run these commands by running <code class="docutils literal"><span class="pre">docker-machine</span> <span class="pre">ssh</span> <span class="pre">&lt;your</span> <span class="pre">machine</span> <span class="pre">name&gt;</span></code>. (You may also need to run the command as root).</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker <span class="nb">exec</span> kafka-connect sh -c <span class="s1">&#39;seq 1000 &gt; /tmp/quickstart/file/input.txt&#39;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Now create the connector using the Kafka Connect REST API. (Note: Make sure you have <code class="docutils literal"><span class="pre">curl</span></code> installed!)</p>
+<blockquote>
+<div><p>Set the <code class="docutils literal"><span class="pre">CONNECT_HOST</span></code> environment variable.  If you are running this on Docker Machine, then the hostname will need to be <code class="docutils literal"><span class="pre">docker-machine</span> <span class="pre">ip</span> <span class="pre">&lt;your</span> <span class="pre">Docker</span> <span class="pre">machine</span> <span class="pre">name&gt;</span></code>. If you are running on a cloud provider like AWS, you will either need to have port <code class="docutils literal"><span class="pre">28082</span></code> open or you can SSH into the VM and run the following command:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">export</span> <span class="nv">CONNECT_HOST</span><span class="o">=</span>localhost
+</pre></div>
+</div>
+<p>The next step is to create the File Source connector.</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker <span class="nb">exec</span> kafka-connect curl -s -X POST <span class="se">\</span>
+  -H <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="se">\</span>
+  --data <span class="s1">&#39;{&quot;name&quot;: &quot;quickstart-file-source&quot;, &quot;config&quot;: {&quot;connector.class&quot;:&quot;org.apache.kafka.connect.file.FileStreamSourceConnector&quot;, &quot;tasks.max&quot;:&quot;1&quot;, &quot;topic&quot;:&quot;quickstart-data&quot;, &quot;file&quot;: &quot;/tmp/quickstart/file/input.txt&quot;}}&#39;</span> <span class="se">\</span>
+  http://<span class="nv">$CONNECT_HOST</span>:28082/connectors
+</pre></div>
+</div>
+<p>After running the command, you should see the following:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">{&quot;name&quot;:&quot;quickstart-file-source&quot;,&quot;config&quot;:{&quot;connector.class&quot;:&quot;org.apache.kafka.connect.file.FileStreamSourceConnector&quot;,&quot;tasks.max&quot;:&quot;1&quot;,&quot;topic&quot;:&quot;quickstart-data&quot;,&quot;file&quot;:&quot;/tmp/quickstart/file/input.txt&quot;,&quot;name&quot;:&quot;quickstart-file-source&quot;},&quot;tasks&quot;:[]}</span>
+</pre></div>
+</div>
+<p>Before moving on, check the status of the connector using curl as shown below:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker <span class="nb">exec</span> kafka-connect curl -s -X GET http://<span class="nv">$CONNECT_HOST</span>:28082/connectors/quickstart-file-source/status
+</pre></div>
+</div>
+<p>You should see the following output including the <code class="docutils literal"><span class="pre">state</span></code> of the connector as <code class="docutils literal"><span class="pre">RUNNING</span></code>:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">{&quot;name&quot;:&quot;quickstart-file-source&quot;,&quot;connector&quot;:{&quot;state&quot;:&quot;RUNNING&quot;,&quot;worker_id&quot;:&quot;localhost:28082&quot;},&quot;tasks&quot;:[{&quot;state&quot;:&quot;RUNNING&quot;,&quot;id&quot;:0,&quot;worker_id&quot;:&quot;localhost:28082&quot;}]}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Now that the connector is up and running, try reading a sample of 10 records from the <code class="docutils literal"><span class="pre">quickstart-data</span></code> topic to check if the connector is uploading data to Kafka, as expected.   You&#8217;ll want to do this in a separate terminal window, retaining the ssh session to the Docker Host for later commands.</p>
+<blockquote>
+<div><div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker run <span class="se">\</span>
+ --net<span class="o">=</span>host <span class="se">\</span>
+ --rm <span class="se">\</span>
+ confluentinc/cp-kafka:4.0.0 <span class="se">\</span>
+ kafka-console-consumer --bootstrap-server localhost:29092 --topic quickstart-data --from-beginning --max-messages <span class="m">10</span>
+</pre></div>
+</div>
+<p>You should see the following:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">{&quot;schema&quot;:{&quot;type&quot;:&quot;string&quot;,&quot;optional&quot;:false},&quot;payload&quot;:&quot;1&quot;}</span>
+<span class="go">{&quot;schema&quot;:{&quot;type&quot;:&quot;string&quot;,&quot;optional&quot;:false},&quot;payload&quot;:&quot;2&quot;}</span>
+<span class="go">{&quot;schema&quot;:{&quot;type&quot;:&quot;string&quot;,&quot;optional&quot;:false},&quot;payload&quot;:&quot;3&quot;}</span>
+<span class="go">{&quot;schema&quot;:{&quot;type&quot;:&quot;string&quot;,&quot;optional&quot;:false},&quot;payload&quot;:&quot;4&quot;}</span>
+<span class="go">{&quot;schema&quot;:{&quot;type&quot;:&quot;string&quot;,&quot;optional&quot;:false},&quot;payload&quot;:&quot;5&quot;}</span>
+<span class="go">{&quot;schema&quot;:{&quot;type&quot;:&quot;string&quot;,&quot;optional&quot;:false},&quot;payload&quot;:&quot;6&quot;}</span>
+<span class="go">{&quot;schema&quot;:{&quot;type&quot;:&quot;string&quot;,&quot;optional&quot;:false},&quot;payload&quot;:&quot;7&quot;}</span>
+<span class="go">{&quot;schema&quot;:{&quot;type&quot;:&quot;string&quot;,&quot;optional&quot;:false},&quot;payload&quot;:&quot;8&quot;}</span>
+<span class="go">{&quot;schema&quot;:{&quot;type&quot;:&quot;string&quot;,&quot;optional&quot;:false},&quot;payload&quot;:&quot;9&quot;}</span>
+<span class="go">{&quot;schema&quot;:{&quot;type&quot;:&quot;string&quot;,&quot;optional&quot;:false},&quot;payload&quot;:&quot;10&quot;}</span>
+<span class="go">Processed a total of 10 messages</span>
+</pre></div>
+</div>
+<p>Success!  You now have a functioning source connector!  Now you can bring balance to the universe by launching a File Sink to read from this topic and write to an output file.  You can do so using the following command from the Docker Host session started earlier:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker <span class="nb">exec</span> kafka-connect curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="se">\</span>
+    --data <span class="s1">&#39;{&quot;name&quot;: &quot;quickstart-file-sink&quot;, &quot;config&quot;: {&quot;connector.class&quot;:&quot;org.apache.kafka.connect.file.FileStreamSinkConnector&quot;, &quot;tasks.max&quot;:&quot;1&quot;, &quot;topics&quot;:&quot;quickstart-data&quot;, &quot;file&quot;: &quot;/tmp/quickstart/file/output.txt&quot;}}&#39;</span> <span class="se">\</span>
+    http://<span class="nv">$CONNECT_HOST</span>:28082/connectors
+</pre></div>
+</div>
+<p>You should see the output below in your terminal window, confirming that the <code class="docutils literal"><span class="pre">quickstart-file-sink</span></code> connector has been created and will write to <code class="docutils literal"><span class="pre">/tmp/quickstart/file/output.txt</span></code>:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">{&quot;name&quot;:&quot;quickstart-file-sink&quot;,&quot;config&quot;:{&quot;connector.class&quot;:&quot;org.apache.kafka.connect.file.FileStreamSinkConnector&quot;,&quot;tasks.max&quot;:&quot;1&quot;,&quot;topics&quot;:&quot;quickstart-data&quot;,&quot;file&quot;:&quot;/tmp/quickstart/file/output.txt&quot;,&quot;name&quot;:&quot;quickstart-file-sink&quot;},&quot;tasks&quot;:[]}</span>
+</pre></div>
+</div>
+<p>As you did before, check the status of the connector:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker <span class="nb">exec</span> kafka-connect curl -s -X GET http://<span class="nv">$CONNECT_HOST</span>:28082/connectors/quickstart-file-sink/status
+</pre></div>
+</div>
+<p>You should see the following:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">{&quot;name&quot;:&quot;quickstart-file-sink&quot;,&quot;connector&quot;:{&quot;state&quot;:&quot;RUNNING&quot;,&quot;worker_id&quot;:&quot;localhost:28082&quot;},&quot;tasks&quot;:[{&quot;state&quot;:&quot;RUNNING&quot;,&quot;id&quot;:0,&quot;worker_id&quot;:&quot;localhost:28082&quot;}]}</span>
+</pre></div>
+</div>
+<p>Finally, you can check the file to see if the data is present. Once again, you will need to SSH into the VM if you are running Docker Machine.</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> docker <span class="nb">exec</span> kafka-connect cat /tmp/quickstart/file/output.txt
+</pre></div>
+</div>
+<p>If everything worked as planned, you should see all of the data you originally wrote to the input file:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">1</span>
+<span class="go">...</span>
+<span class="go">1000</span>
+</pre></div>
+</div>
+<p>Since you&#8217;re done with the Docker Host session for now, you can exit it with the following command</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>docker@confluent:~$ <span class="nb">exit</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="monitoring-in-control-center">
+<h4>Monitoring in Control Center<a class="headerlink" href="#monitoring-in-control-center" title="Permalink to this headline">¶</a></h4>
+<p>Next you&#8217;ll see how to monitor the Kafka Connect connectors in Control Center.  Because you specified the monitoring interceptors when you deployed the Connect container, the data flows through all of your connectors will monitored in the same ways as the console producer/consumer tasks you executed above.  Additionally, Control Center allows us to visually manage and deploy connectors, as you&#8217;ll see now.</p>
+<blockquote>
+<div><blockquote>
+<div><p>Select the Management / Kafka Connect link in the Control Center navigation bar.  Select the <code class="docutils literal"><span class="pre">SOURCES</span></code> and <code class="docutils literal"><span class="pre">SINKS</span></code> tabs at the top of the page to see that both the source and sink are running.</p>
+<div class="figure align-center" id="id5">
+<a class="reference internal image-reference" href="../../../_images/c3-quickstart-connect-view-src.png"><img alt="../../../_images/c3-quickstart-connect-view-src.png" src="../../../_images/c3-quickstart-connect-view-src.png" style="width: 1229.0px; height: 1210.0px;" /></a>
+<p class="caption"><span class="caption-text">Confluent Control Center showing a Connect source</span></p>
+</div>
+<div class="figure align-center" id="id6">
+<a class="reference internal image-reference" href="../../../_images/c3-quickstart-connect-view-sink.png"><img alt="../../../_images/c3-quickstart-connect-view-sink.png" src="../../../_images/c3-quickstart-connect-view-sink.png" style="width: 1229.0px; height: 1210.0px;" /></a>
+<p class="caption"><span class="caption-text">Confluent Control Center showing a Connect sink</span></p>
+</div>
+</div></blockquote>
+<p>You should start to see stream monitoring data from Kafka Connect in the Control Center UI from the running connectors.  Remember that the file contained only 1000 messages, so you&#8217;ll only see a short spike of topic data.</p>
+<blockquote>
+<div><div class="figure align-center" id="id7">
+<a class="reference internal image-reference" href="../../../_images/c3-quickstart-connect-monitoring.png"><img alt="../../../_images/c3-quickstart-connect-monitoring.png" src="../../../_images/c3-quickstart-connect-monitoring.png" style="width: 1229.0px; height: 1210.0px;" /></a>
+<p class="caption"><span class="caption-text">Confluent Control Center monitoring Kafka Connect</span></p>
+</div>
+</div></blockquote>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="cleanup">
+<h3>Cleanup<a class="headerlink" href="#cleanup" title="Permalink to this headline">¶</a></h3>
+<p>After you&#8217;re done, cleanup is simple.  Run the command <code class="docutils literal"><span class="pre">docker</span> <span class="pre">rm</span> <span class="pre">-f</span> <span class="pre">$(docker</span> <span class="pre">ps</span> <span class="pre">-a</span> <span class="pre">-q)</span></code> to delete all the containers you created in the steps above for your target Docker Host.  Because you allowed Kafka and ZooKeeper to store data on their respective containers, there are no additional volumes to clean up.  If you also want to remove the Docker machine you used, you can do so using <code class="docutils literal"><span class="pre">docker-machine</span> <span class="pre">rm</span> <span class="pre">&lt;your</span> <span class="pre">machine</span> <span class="pre">name&gt;</span></code>.</p>
+</div>
+</div>
+</div>
+
+
+               </div>
+              </div>
+                <div id="pd_rating_holder_8648685" class="rating-section"></div>
+              <script type="text/javascript">
+                  PDRTJS_settings_8648685 = {
+                      "id" : "8648685",
+                      "unique_id" : "Docker Quick Start",
+                      "title" : "Docker Quick Start",
+                      "permalink" : "https://docs.confluent.io/current/installation/docker/docs/quickstart.html"
+                  };
+                  (function(d,c,j){if(!document.getElementById(j)){var pd=d.createElement(c),s;pd.id=j;pd.src=('https:'==document.location.protocol)?'https://polldaddy.com/js/rating/rating.js':'http://i0.poll.fm/js/rating/rating.js';s=document.getElementsByTagName(c)[0];s.parentNode.insertBefore(pd,s);}}(document,'script','pd-rating-js'));
+              </script>
+              </div>
+              <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="configuration.html" class="btn btn-neutral float-right" title="Docker Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Installing using Docker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Confluent, Inc. All other trademarks, servicemarks, and copyrights are the property of their respective owners.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+
+
+              <p class="footer-feedback-link"><a href="mailto:docs@confluent.io?subject=Documentation Feedback">Please report any inaccuracies on this page or suggest an edit.</a></p>
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+      
+      <div id="c-versions" class="c-versions" version="4.0.0">
+        <a class="current c-button" href="/current" name="current"><span>v.--</span></a>
+        <div id="c-versions__inner" class="c-versions__inner"></div>
+        <a class="c-button b-expand-versions" rel="nofollow"></a>
+      </div>
+
+      
+
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'4.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+    <script type="text/javascript">
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-56447542-1', {'allowAnchor': true});
+      ga('send', 'pageview', { 'page': location.pathname + location.search + location.hash});
+
+      // Adjust vertical scroll to bring anchor links to the very top of the content pane
+      // This is need to account for the fixed header up top
+      function scrollToAnchor(el, val) {
+        window.setTimeout(function(){
+          if(window.location.hash) {
+            var newScrollTop = el.scrollTop() + val;
+            el.stop().animate({ scrollTop: newScrollTop }, 50);
+          }
+        }, 100);
+      }
+
+      $(function() {
+        // Handle expanding of past versions overlay
+        $('.b-expand-versions').click(function(){
+          $('.c-versions').toggleClass('expanded');
+        });
+
+        // Offsets for desktop vrs. mobile layout
+        var offset = window.innerWidth > 768 ? -110 : -70;
+
+        // Set offset on load
+        scrollToAnchor($('body'), offset);
+
+        // Set offset anytime reference link is clicked
+        $('a.reference').click(function(){
+          scrollToAnchor($('body'), offset);
+        });
+      });
+    </script>
+
+  <!-- The docVersions are loaded from current so the doc nav always contains all versions without having to update old
+       versions with new releases -->
+  <script type="text/javascript" src="/current/_static/js/docVersions.js"></script>
+  <script type='text/javascript' src='https://www.confluent.io/wp-content/themes/confluent/assets/js/jquery.magnific-popup.min.js'></script>
+  <script type="text/javascript" src="../../../_static/js/confluent.js"></script>
+  
+
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','fKb4R9A3abuadqy9xxGE','2.0.0');
+  </script>
+
+</body>
+</html>
